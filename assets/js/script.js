@@ -140,17 +140,74 @@ function initStars() {
   }
 }
 
-// ===== AIM BUDDY MESSAGES =====
-var aimMsgs = [
-  'Online... not that I care if you notice!!',
-  '&#x2665; Status: Tsundere &#x2665;',
-  'Away: don\'t miss me too much, baka',
-  '&#x2728; vibing... do not disturb &#x2728;',
-  'BRB, being cute elsewhere',
-  'Currently: ignoring you with love &#x2665;',
-  'Busy breaking hearts and compiling code',
-  'Online but pretending not to see you'
+// ===== AIM CHAT MESSAGES =====
+var aimChat = (function() {
+  try { return JSON.parse(localStorage.getItem('yumeria_aimchat') || '[]'); } catch (e) { return []; }
+})();
+var aimOnline = true;
+var aimOfflineTimer = null;
+var aimStatusMsgs = [
+  'Status: Busy ignoring you',
+  'Status: Away from keyboard (probably crying)',
+  'Status: tsundere.exe has stopped working',
+  'Status: Invisible to you specifically',
+  'Status: Listening to Promise on repeat',
+  'Status: BRB, existential crisis',
+  'Status: &#x25D1; of &#x25D1; friends online',
+  'Status: Gone to get snacks, be back never',
+  'Status: My Status: [loading...] your mom',
+  'Status: Online (unfortunately)',
 ];
+function saveAimChat() {
+  try { localStorage.setItem('yumeria_aimchat', JSON.stringify(aimChat)); } catch (e) {}
+}
+function renderAimChat() {
+  var el = document.getElementById('aimMsgs');
+  if (!el) return;
+  var html = '';
+  for (var i = 0; i < aimChat.length; i++) {
+    var entry = aimChat[i];
+    var from = entry.from || 'you';
+    var text = entry.text || (typeof entry === 'string' ? entry : '');
+    html += '<div class="' + from + '">' + text + '</div>';
+  }
+  el.innerHTML = html;
+  el.scrollTop = el.scrollHeight;
+}
+function setAimOffline() {
+  if (!aimOnline) return;
+  aimOnline = false;
+  var dot = document.getElementById('aimDot');
+  var name = document.getElementById('aimName');
+  var pic = document.getElementById('aimPic');
+  var statusTxt = document.getElementById('aimStatusText');
+  var onlineTxt = document.getElementById('aimOnlineTxt');
+  if (dot) dot.classList.add('offline');
+  if (name) name.classList.add('offline');
+  if (pic) pic.classList.add('offline');
+  if (onlineTxt) { onlineTxt.classList.add('offline'); onlineTxt.textContent = 'OFFLINE'; }
+  if (statusTxt) statusTxt.textContent = 'signed off';
+}
+function submitAimChat() {
+  var input = document.getElementById('aimInput');
+  if (!input) return;
+  var msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  aimChat.push({from: 'you', text: msg});
+  saveAimChat();
+  renderAimChat();
+  var typing = document.getElementById('aimTyping');
+  setTimeout(function() {
+    if (!aimOnline) return;
+    if (typing) typing.textContent = 'Yumeria is ignoring you...';
+    setTimeout(function() {
+      if (typing) typing.textContent = '';
+    }, 4000);
+  }, 3000);
+  clearTimeout(aimOfflineTimer);
+  aimOfflineTimer = setTimeout(setAimOffline, 17000);
+}
 
 // ===== RANDOM BOOT MESSAGES =====
 var bootMsgs = [
@@ -203,19 +260,67 @@ document.addEventListener('DOMContentLoaded', function() {
   // star rating
   initStars();
 
-  // AIM buddy rotating messages
-  var aimMsg = document.getElementById('aimMsg');
-  if (aimMsg) {
-    var idx = 0;
-    setInterval(function() {
-      idx = (idx + 1) % aimMsgs.length;
-      aimMsg.innerHTML = aimMsgs[idx];
-    }, 8000);
+  // AIM chat
+  aimOnline = true;
+  var aimDot = document.getElementById('aimDot');
+  var aimName = document.getElementById('aimName');
+  var aimPic = document.getElementById('aimPic');
+  var aimOnlineTxt = document.getElementById('aimOnlineTxt');
+  var aimStatus = document.getElementById('aimStatusText');
+  if (aimDot) aimDot.classList.remove('offline');
+  if (aimName) aimName.classList.remove('offline');
+  if (aimPic) aimPic.classList.remove('offline');
+  if (aimOnlineTxt) { aimOnlineTxt.classList.remove('offline'); aimOnlineTxt.textContent = 'ONLINE'; }
+  if (aimStatus) aimStatus.innerHTML = aimStatusMsgs[Math.floor(Math.random() * aimStatusMsgs.length)];
+  var aimStarters = [
+    'Ugh. YOU. ...I wasn\'t expecting anyone.',
+    'Oh. It\'s you again. ...I wasn\'t waiting or anything.',
+    'Don\'t get any ideas just because I said hi.',
+    'I\'m not going to say I missed you. Because I didn\'t.',
+    '...You\'re just gonna stare at the screen? Typical.',
+    'Fine. I\'ll start. ...No wait, YOU start. Baka.',
+    'I wasn\'t ignoring you. I was busy. (being cute)',
+    'Hmph. You better have something interesting to say.',
+    '...You visit my site. Great. Don\'t make it weird.',
+    'Oh great, it\'s you. My day was going so well too.'
+  ];
+  if (aimChat.length === 0) {
+    var starter = aimStarters[Math.floor(Math.random() * aimStarters.length)];
+    aimChat.push({from: 'me', text: starter});
+    saveAimChat();
+  }
+  renderAimChat();
+  var aimInput = document.getElementById('aimInput');
+  var aimSend = document.getElementById('aimSend');
+  if (aimInput && aimSend) {
+    aimSend.addEventListener('click', submitAimChat);
+    aimInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') submitAimChat(); });
   }
 
   // init local background music (muted autostart) + show cringe error popup on load
   initAudio();
   showSoundGate();
+
+  // make AIM buddy draggable by title bar
+  var aimBuddy = document.getElementById('aimBuddy');
+  var aimTitle = document.getElementById('aimTitleBar');
+  if (aimBuddy && aimTitle) {
+    var dx, dy, dragging = false;
+    aimTitle.addEventListener('mousedown', function(e) {
+      dragging = true;
+      var rect = aimBuddy.getBoundingClientRect();
+      dx = e.clientX - rect.left;
+      dy = e.clientY - rect.top;
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      aimBuddy.style.left = (e.clientX - dx) + 'px';
+      aimBuddy.style.top = (e.clientY - dy) + 'px';
+      aimBuddy.style.right = 'auto';
+      aimBuddy.style.bottom = 'auto';
+    });
+    document.addEventListener('mouseup', function() { dragging = false; });
+  }
 });
 
 // ===== BACKGROUND MUSIC (local mp3) =====
@@ -223,8 +328,8 @@ var audioEl = null;
 var musicReady = false;
 var musicPlaying = false;
 var soundGatePending = false;
-var songTitle = 'Promise - Kohmi Hirose';
-// saved state: 'auto' | 'playing' | 'muted' | 'paused'
+var songTitle = 'Promise';
+var songArtist = 'Kohmi Hirose';
 var savedMusicState = (function() {
   try { return localStorage.getItem('yumeria_music') || 'auto'; } catch (e) { return 'auto'; }
 })();
@@ -293,17 +398,21 @@ function setMusicUI(playing, muted) {
   var ctrl = document.getElementById('musicCtrl');
   var btn = document.getElementById('playBtn');
   var txt = document.getElementById('musicTxt');
+  var art = document.getElementById('playerArtist');
   if (!ctrl) return;
   if (!musicReady) { txt.textContent = 'LOADING...'; return; }
   if (playing) {
     ctrl.classList.remove('paused');
+    btn.classList.remove('paused-btn');
     btn.innerHTML = muted ? '&#x1F507;' : '&#x23F8;';
-    txt.textContent = muted ? (songTitle + ' (muted)') : ('♪ ' + songTitle + ' ♪');
+    txt.textContent = songTitle;
   } else {
     ctrl.classList.add('paused');
+    btn.classList.add('paused-btn');
     btn.innerHTML = '&#x25B6;';
-    txt.textContent = 'PAUSED: ' + songTitle;
+    txt.textContent = songTitle;
   }
+  if (art) art.textContent = songArtist;
 }
 
 function toggleMusic() {

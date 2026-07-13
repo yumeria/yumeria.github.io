@@ -11,11 +11,11 @@
 
 <div class="sys-bar">
   <span class="hardhat">&#x1F477;</span>
-  <span class="blink" style="color:#0f0;">&#x25CF;</span>
+  <marquee style="width:80px; display:inline-block;" scrollamount="3">POWERED BY NOTEPAD.EXE</marquee>
   <span class="sep">|</span>
   <span style="color:#0ff;">YUMERIA</span>
   <span class="sep">|</span>
-  <span>STATUS: ONLINE</span>
+  <span><blink style="color:#f44;">&#x2605; NEW!</blink></span>
   <span class="sep">|</span>
   <span style="color:#ff0;">MOOD: TSUNDERE</span>
   <span class="sep">|</span>
@@ -54,6 +54,33 @@
   <span style="color:#888;">[BOOT]</span> LOADING... MOE DRIVERS <span style="color:#0f0;">OK</span> | TSUNDERE MODULE <span style="color:#ff0;">ACTIVE</span> | BAKA DETECTOR <span style="color:#f44;">TRIGGERED (you)</span> | SYSTEM <span style="color:#0f0;">READY</span> <span class="blink">&#x2588;</span>
 </div>
 
+<div class="player-row">
+  <div class="player-panel" id="musicCtrl">
+    <img class="player-cover" src="img/player.jpg" alt="cover">
+    <div class="player-info">
+      <div class="player-song" id="musicTxt">LOADING MUSIC...</div>
+      <div class="player-artist" id="playerArtist">Artist Unknown</div>
+      <div class="player-controls">
+        <button class="player-btn" id="prevBtn" disabled>&#x23EE;</button>
+        <button class="player-btn play-btn" id="playBtn">&#x25B6;</button>
+        <button class="player-btn" id="nextBtn" disabled>&#x23ED;</button>
+        <div class="player-vol-wrap">
+          <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.5">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cringe-block">
+    <canvas id="matrix"></canvas>
+    <div class="cringe-content">
+      <div class="badge">MADE WITH NOTEPAD.EXE &#x2665;</div>
+      <div class="title">&#x2605; UNDER CONSTRUCTION &#x2605;</div>
+      <div class="sub">BEST VIEWED AT 800x600</div>
+      <div class="marquee-text">&#x25CF; TSUNDERE POWER LEVEL: MAXIMUM &#x25CF; ONLINE SINCE 199(ERR_SEGFAULT) &#x25CF; IF YOU CAN READ THIS YOU&#39;RE TOO CLOSE &#x25CF;</div>
+    </div>
+  </div>
+</div>
+
 <div class="header">
   <h1>
     <span class="unit">// UNIT: YUMERIA //</span>
@@ -89,14 +116,12 @@
     <div>CODE: <span class="bar-bg"><span class="bar" style="width:68%; background:#ffd700;"></span></span> <span style="color:#ffd700;">it works ok</span></div>
     <div style="margin-top:4px; border-top:1px solid #ffd700; padding-top:4px; font-size:10px; color:#aaa;">&gt; dev ramblings on @yumeriadev</div>
   </div>
-  <div class="panel red matrix-panel">
+  <div class="panel red">
     <span class="label">&#x26A0; BAKA DETECTOR</span>
-    <canvas id="matrix"></canvas>
-    <div class="overlay">
-      <div class="big">WARNING: BAKA</div>
-      <div class="sub">&#x25CF; INTRUSION DETECTED &#x25CF;</div>
-      <div class="sub" style="font-size:8px; margin-top:2px;">> don't touch anything, baka</div>
-    </div>
+    <div>DETECTION: <span class="v">TRIGGERED</span> &nbsp;|&nbsp; LEVEL: <span class="v">CRITICAL</span></div>
+    <div>INTRUSIONS: <span class="v">999+</span></div>
+    <div>BAKA: <span class="bar-bg"><span class="bar" style="width:100%; background:#f44;"></span></span> <span style="color:#f44;">MAX</span></div>
+    <div style="margin-top:4px; border-top:1px solid #f44; padding-top:4px; font-size:10px; color:#f88;">&gt; you&#39;re the baka, by the way</div>
   </div>
 </div>
 
@@ -118,6 +143,7 @@
   <h2>&#x1F4F7; KIGURUMI & COSPLAY <span class="sub">// mask on, ego off</span></h2>
   <div class="s-grid">
     <a href="https://www.instagram.com/__yumeria__" target="_blank" class="pink pulse">Instagram <span style="font-size:9px; color:#888;">@__yumeria__</span></a>
+    <a href="https://x.com/AkibaYellow" target="_blank" class="gold">X/Twitter <span style="font-size:9px; color:#888;">@AkibaYellow</span></a>
   </div>
 </div>
 
@@ -132,7 +158,6 @@
 <div class="sect">
   <h2>&#x1F30D; SOCIALS <span class="sub">// find me, i guess</span></h2>
   <div class="s-grid">
-    <a href="https://x.com/AkibaYellow" target="_blank" class="gold">X/Twitter <span style="font-size:9px; color:#888;">@AkibaYellow</span></a>
     <a href="https://www.youtube.com/@YumeriaKig" target="_blank" class="pink">YouTube <span style="font-size:9px; color:#888;">@YumeriaKig</span></a>
     <a href="https://www.twitch.tv/yumeriakig" target="_blank" class="pink">Twitch <span style="font-size:9px; color:#888;">/YumeriaKig</span></a>
     <a href="https://pari.cafe/@yumeria" target="_blank">Fediverse <span style="font-size:9px; color:#888;">@yumeria</span></a>
@@ -144,7 +169,7 @@
 </div>
 
 <div class="tracker">
-  VISITOR # <span class="n">0</span><span class="n">0</span><span class="n">1</span><span class="n">3</span><span class="n">3</span><span class="n">7</span> <span style="color:#555;">|</span> SINCE 2021
+  VISITOR # <span class="n">0</span><span class="n">0</span><span class="n">1</span><span class="n">3</span><span class="n">3</span><span class="n">7</span> <span style="color:#555;">|</span> ONLINE SINCE 199(ERR_SEGFAULT)
   <span class="stars" id="starRating">
     <span class="label">RATE:</span>
     <span data-v="1">&#x2606;</span>
@@ -184,28 +209,33 @@
   <br><br>
   <span style="font-size:9px; color:#444;">
     Best viewed at 800x600 with Netscape Navigator 4.79 or IE 5.5<br>
-    Made with pure HTML, spite and love since 2021
+    Made with pure HTML, spite and love since 199(ERR_UNKNOWN)
   </span>
 </div>
 
 </div>
 
-<div class="aim-buddy" id="aimBuddy">
-  <div class="top">
-    <span class="dot"></span>
-    <img id="aimPic" src="img/avatar.png" alt="" style="width:32px; height:32px; object-fit:cover; border:1px solid #333;">
-    <span class="name">YUMERIA</span>
+<div class="aim-window" id="aimBuddy">
+  <div class="aim-top" id="aimTitleBar">
+    <img class="aim-avatar" id="aimPic" src="img/avatar.png" alt="">
+    <div class="aim-top-info">
+      <div class="aim-top-row">
+        <span class="aim-name" id="aimName">YUM3R1A</span>
+        <span class="aim-dot" id="aimDot"></span>
+        <span class="aim-online-txt" id="aimOnlineTxt">ONLINE</span>
+      </div>
+      <div class="aim-status" id="aimStatusText">tsundere.exe has stopped working</div>
+    </div>
   </div>
-  <div class="msg-box">
-    <marquee behavior="scroll" direction="left" scrollamount="2" id="aimMsg">Online... not that I care if you notice!!</marquee>
-  </div>
-</div>
-
-<div class="music-ctrl" id="musicCtrl">
-  <button class="play-btn" id="playBtn">&#x25B6;</button>
-  <span id="musicTxt">LOADING MUSIC...</span>
-  <div class="vol-wrap">
-    <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.5">
+  <div class="aim-body">
+    <div class="aim-chat">
+      <div class="aim-msgs" id="aimMsgs"></div>
+      <div class="aim-typing" id="aimTyping"></div>
+      <div class="aim-input-wrap">
+        <input type="text" id="aimInput" placeholder="Message me, baka..." maxlength="100">
+        <button id="aimSend">SEND</button>
+      </div>
+    </div>
   </div>
 </div>
 
