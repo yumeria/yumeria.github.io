@@ -228,8 +228,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var dateEl = document.getElementById('sysDate');
   if (dateEl) {
     var d = new Date();
-    var mm = String(d.getMonth() + 1).padStart(2, '0');
-    var dd = String(d.getDate()).padStart(2, '0');
+    var mm = ('0' + (d.getMonth() + 1)).slice(-2);
+    var dd = ('0' + d.getDate()).slice(-2);
     var yy = String(d.getFullYear()).slice(2);
     dateEl.textContent = mm + '.' + dd + '.' + yy;
   }

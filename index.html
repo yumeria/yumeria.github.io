@@ -16,6 +16,16 @@
     POWERED BY NOTEPAD.EXE | <span style="color:#f44;">&#x2605; NEW!</span> | <span style="color:#ff0;">MOOD: TSUNDERE</span> | <span style="color:#888;">CPU: 42%</span> | <span style="color:#0f0;">MASK: ON</span> | <span style="color:#f44;">BAKA: <span class="blink">!!</span></span> | <span style="color:#555;">v3.1</span> | <span style="color:#ff69b4;">MEMORY: LEAKING</span> | <span style="color:#f80;">FACE: HIDDEN</span> | <span style="color:#0ff;">TOKEN: OVERFLOW</span> | <span style="color:#ff69b4;">OUTFIT: COORDINATED</span> | <span style="color:#ff0;">COOKIES: EATEN</span> | <span style="color:#fa0;">GPU: MELTING</span> | <span style="color:#0ff;">STYLE: Y2K</span> | <span style="color:#f44;">PING: 999ms</span> | <span style="color:#f4f;">PROTOCOL: MOE</span> | <span style="color:#6cf;">UPTIME: NEVER</span> | <span style="color:#f66;">AGENT: HALLUCINATING</span>
   </marquee>
   <span style="color:#555; font-size:10px; white-space:nowrap; flex-shrink:0; margin-left:8px;" id="sysDate">--.--.--</span>
+  <script>
+    var _d = new Date();
+    var _el = document.getElementById('sysDate');
+    if (_el) {
+      _el.textContent =
+        ('0' + (_d.getMonth() + 1)).slice(-2) + '.' +
+        ('0' + _d.getDate()).slice(-2) + '.' +
+        String(_d.getFullYear()).slice(2);
+    }
+  </script>
 </div>
 
 <div class="deco-layer">
