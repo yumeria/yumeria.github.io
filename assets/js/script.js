@@ -224,6 +224,16 @@ var bootMsgs = [
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
+  // set current date
+  var dateEl = document.getElementById('sysDate');
+  if (dateEl) {
+    var d = new Date();
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var dd = String(d.getDate()).padStart(2, '0');
+    var yy = String(d.getFullYear()).slice(2);
+    dateEl.textContent = mm + '.' + dd + '.' + yy;
+  }
+
   // randomize images
   document.querySelectorAll('img[data-random]').forEach(function(img) {
     var n = Math.floor(Math.random() * 38);
@@ -301,25 +311,68 @@ document.addEventListener('DOMContentLoaded', function() {
   initAudio();
   showSoundGate();
 
-  // make AIM buddy draggable by title bar
+  // make AIM buddy draggable by title bar (mouse + touch)
   var aimBuddy = document.getElementById('aimBuddy');
   var aimTitle = document.getElementById('aimTitleBar');
   if (aimBuddy && aimTitle) {
     var dx, dy, dragging = false;
-    aimTitle.addEventListener('mousedown', function(e) {
+    function startDrag(cx, cy) {
       dragging = true;
       var rect = aimBuddy.getBoundingClientRect();
-      dx = e.clientX - rect.left;
-      dy = e.clientY - rect.top;
-    });
-    document.addEventListener('mousemove', function(e) {
+      dx = cx - rect.left;
+      dy = cy - rect.top;
+    }
+    function moveDrag(cx, cy) {
       if (!dragging) return;
-      aimBuddy.style.left = (e.clientX - dx) + 'px';
-      aimBuddy.style.top = (e.clientY - dy) + 'px';
+      aimBuddy.style.left = (cx - dx) + 'px';
+      aimBuddy.style.top = (cy - dy) + 'px';
       aimBuddy.style.right = 'auto';
       aimBuddy.style.bottom = 'auto';
-    });
+    }
+    aimTitle.addEventListener('mousedown', function(e) { startDrag(e.clientX, e.clientY); });
+    document.addEventListener('mousemove', function(e) { moveDrag(e.clientX, e.clientY); });
     document.addEventListener('mouseup', function() { dragging = false; });
+    aimTitle.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      startDrag(t.clientX, t.clientY);
+    }, {passive: false});
+    document.addEventListener('touchmove', function(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      var t = e.touches[0];
+      moveDrag(t.clientX, t.clientY);
+    }, {passive: false});
+    document.addEventListener('touchend', function() { dragging = false; });
+  }
+
+  // BAKA easter egg - 10 clicks on TSUNDERE POWERED badge
+  var bakaCount = 0;
+  var bakaBadge = document.getElementById('tsundereBadge');
+  if (bakaBadge) {
+    bakaBadge.addEventListener('click', function(e) {
+      e.stopPropagation();
+      bakaCount++;
+      if (bakaCount >= 10) {
+        bakaCount = 0;
+        var ov = document.createElement('div');
+        ov.className = 'baka-overlay';
+        var sc = document.createElement('div');
+        sc.className = 'baka-scroll';
+        var lines = [];
+        for (var i = 0; i < 80; i++) {
+          var words = [];
+          for (var j = 0; j < 6; j++) words.push('BAKA');
+          lines.push(words.join(' '));
+        }
+        sc.textContent = lines.join('\n');
+        ov.appendChild(sc);
+        document.body.appendChild(ov);
+        ov.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false});
+        sc.addEventListener('animationend', function() { ov.remove(); });
+      }
+    });
+    document.addEventListener('click', function() { bakaCount = 0; });
   }
 });
 

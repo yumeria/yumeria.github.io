@@ -83,9 +83,10 @@
     color: #0f0;
     font-weight: normal;
     text-shadow: none;
+    flex-wrap: nowrap;
+    overflow: hidden;
   }
   .sys-bar .sep { color: #333; margin: 0 6px; }
-  .sys-bar .hardhat { font-size: 12px; margin-right: 3px; }
 
   /* ===== DECO LAYER ===== */
   .deco-layer {
@@ -146,8 +147,8 @@
     font-size: 30px;
     color: #fff;
     text-shadow:
-      3px 3px 0 #ff00ff,
-      5px 5px 0 #00ffff,
+      2px 2px 0 #ff00ff,
+      4px 4px 0 #00ffff,
       0 0 30px #ff00ff;
     letter-spacing: 4px;
     position: relative;
@@ -805,4 +806,32 @@
     .hero-area .hero-img:nth-child(6) { display: none; }
     .header h1 { font-size: 20px; letter-spacing: 2px; }
     .deco-layer img { display: none; }
+  }
+
+  /* ===== BAKA EASTER EGG ===== */
+  .baka-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0,0,0,0.92);
+    overflow: hidden;
+  }
+  .baka-scroll {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    font-size: min(14vw, 14vh, 110px);
+    color: #f44;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    white-space: pre;
+    line-height: 1.4;
+    text-shadow: 0 0 30px #f00, 0 0 60px #f00, 0 0 90px #f00;
+    animation: bakaUp 10s linear forwards;
+  }
+  @keyframes bakaUp {
+    0% { transform: translateY(calc(-100% + 100vh)); }
+    100% { transform: translateY(0); }
   }
