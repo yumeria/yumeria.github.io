@@ -792,8 +792,6 @@
     font-size: 9px;
     color: #0f0;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     width: 100%;
   }
 
