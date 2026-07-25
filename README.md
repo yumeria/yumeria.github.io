@@ -12,7 +12,7 @@ Made with **Notepad.exe** ... okay look. I KNOW that's embarrassing. There are I
 
 **Zero frameworks. Zero libraries. Maximum pain. Maximum sparkles.**
 
-Best viewed on Netscape Navigator 4.79 at 800x600 with your CRT monitor's refresh rate set to 60hz and aol instant messenger running in the background. If you're on a phone, lol good luck.
+Best viewed on Netscape Navigator 4.79 at 800x600 with your CRT monitor's refresh rate set to 60hz and aol instant messenger running in the background. If you're on a phone, lol good luck. (It *kinda* works. Don't get used to it.)
 
 ---
 
@@ -20,7 +20,7 @@ Best viewed on Netscape Navigator 4.79 at 800x600 with your CRT monitor's refres
 
 Because I wanted a corner of the internet that's MINE and you're just visiting. Hmph.
 
-Also I saw those GeoCities sites from the 90s and thought "I could make something that looks broken ON PURPOSE." And I did. Every `<blink>` tag was placed with intention. The sparkly GIFs? Intentional. The layout that breaks on mobile? ALSO INTENTIONAL. Probably.
+Also I saw those GeoCities sites from the 90s and thought "I could make something that looks broken ON PURPOSE." And I did. Every `<blink>` tag was placed with intention. The floating models? Intentional. The dual marquees that hate each other? ALSO INTENTIONAL. Probably.
 
 Also I needed somewhere to put my cosplay photos and my AI experiments and... and it's not like I wanted SHOW you, I just... needed a place. OKAY?!
 
@@ -28,12 +28,19 @@ Also I needed somewhere to put my cosplay photos and my AI experiments and... an
 
 ## features (they're okay i guess)
 
-- Matrix rain in a `<div>` (real programmers use `<canvas>`, I use brute force and ignorance)
-- AIM chat buddy that roasts you personally. Don't take it personally. Actually do, it's funnier.
-- Guestbook that saves to your browser's soul (localStorage). Your data is safe. From ME. Not from your own stupidity.
-- A music player with exactly one (1) song on loop. You WILL listen to Promise by Kohmi Hirose and you WILL like it.
+- Matrix rain on a `<canvas>` (yes I know. I used to brag about not using canvas. Growth. Whatever.)
+- AIM chat buddy that ignores you, goes AFK, and judges your idle time. Don't take it personally. Actually do, it's funnier.
+- Guestbook that saves to your browser's soul (`localStorage`). Moods included. Seeded with people from 2003 who may or may not exist.
+- A music player with exactly one (1) song on loop. You WILL listen to Promise by Kohmi Hirose and you WILL like it. Pause it seven times if you want to feel pain.
 - So many `<marquee>` tags the W3C validator blocked my IP
-- A badge counter that does something if you're annoying enough about it. Try it. Maybe.
+- Cursor trails you can cycle (sparkles / hearts / BAKA / binary / off) because 2001 never ended
+- A visitor counter that lies to you on purpose. Click it if you want it to lie harder.
+- Under construction forever: caution tape, fake loading bars that finish at 103%, snow in July
+- Webring that goes nowhere (it's in the `[ WEBRING ]` window, stop looking for a section)
+- Konami code. I'm not telling you what it does. Figure it out, nerd.
+- A sticky note that says DON'T CLICK. You will click. I know you.
+- "Disable flashing, coward" if your eyes are soft. The rest of us live like this.
+- A badge that does something if you're annoying enough about it. Try it. Maybe. Ten times. Or whatever.
 
 ---
 
@@ -50,16 +57,16 @@ If that doesn't work try:
 sudo python3 -m http.server 8080
 ```
 
-If that ALSO doesn't work just open index.html in your browser you absolute muffin.
+If that ALSO doesn't work just open `index.html` in your browser you absolute muffin.
 
-(It's a static HTML file. All three work. Pick one.)
+(It's a static site. `index.html` + `assets/` + `img/` + `model/` + `audio/`. All three work. Pick one.)
 
 ---
 
 ## credits (don't expect this much effort next time)
 
 - **Code & tears**: YUMERIA (...fine, I used Notepad.exe. STOP LOOKING AT ME LIKE THAT.)
-- **Music**: "Promise" by Kohmi Hirose (it's stuck in my head, now it's stuck in yours)
+- **Music**: "Promise" by Kohmi Hirose (it's stuck in my head, now it's stuck in yours) — MIDI courtesy of nobody, it's an MP3, shut up
 - **Hosting**: GitHub Pages (we close our eyes and pretend it's GeoCities)
 - **Photos**: Me. In a mask. Being cute against my will. Don't stare.
 
@@ -71,7 +78,7 @@ Yeah yeah, I know what you're thinking. "Did an LLM help you write this code?"
 
 ...MAYBE. So what?! It's not like I couldn't have done it myself!! I TOTALLY could have. I just... had better things to do. Like existing. Being cute. Whatever.
 
-The AI helped with some of the boring parts (nobody has time to hand-code matrix rain, OKAY) and I told it where to put the sparkles. It did what I said because I'm the BOSS. Me. Not the AI. I'm in charge here.
+The AI helped with some of the boring parts (nobody has time to hand-tune particle caps and reduced-motion flags, OKAY) and I told it where to put the sparkles. It did what I said because I'm the BOSS. Me. Not the AI. I'm in charge here.
 
 ...Also I'm aware this makes the whole "I MADE IT IN NOTEPAD.EXE" thing look a little sus. OKAY?! I'm aware. You don't have to point it out. Let's just... let's just move on. Notepad.exe was used. The LLM was used. They coexisted. It's a MODERN WORKFLOW. Whatever. Moving on.
 
