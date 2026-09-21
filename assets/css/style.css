@@ -22,12 +22,43 @@ html { overflow-x: hidden; }
 body {
   background: #000;
   background-image:
-    radial-gradient(#0a0a2e 1px, transparent 1px),
-    radial-gradient(#1a0a2e 1px, transparent 1px);
-  background-size: 40px 40px, 20px 20px;
+    radial-gradient(rgba(255, 105, 180, 0.16) 1px, transparent 1px),
+    radial-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 80px 80px, 56px 56px;
   font-family: var(--font-mono);
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -80px;
+  z-index: 100001;
+  background: #ff0;
+  color: #000;
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 12px;
+  text-decoration: underline;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 52px;
+  box-shadow: var(--focus-ring);
+}
+
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 2px,
+    rgba(0, 0, 0, 0.15) 2px 3px
+  );
+  opacity: 0.45;
 }
 
 @keyframes blink { 50% { opacity: 0; } }
@@ -85,21 +116,50 @@ body {
 .sys-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 24px;
+  min-height: 24px;
+  height: auto;
   background: #000;
   border-bottom: 1px solid #0f0;
   z-index: 999;
   display: flex;
   align-items: center;
-  padding: 0 8px;
+  padding: 2px 8px;
   font-size: 11px;
   color: #0f0;
   font-weight: normal;
   text-shadow: none;
   flex-wrap: nowrap;
   overflow: hidden;
+  gap: 6px;
 }
-.sys-bar .sep { color: #333; margin: 0 6px; }
+.sys-bar .sep { color: #333; margin: 0; }
+.sys-motion {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  cursor: pointer;
+  background: #001a1a;
+  color: #0ff;
+  border: 2px outset #0ff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.sys-motion:hover {
+  background: #0ff;
+  color: #000;
+}
+.sys-motion[aria-pressed="true"] {
+  background: #331a00;
+  color: #ff0;
+  border-color: #ff0;
+  border-style: inset;
+}
+.sys-motion:focus-visible {
+  box-shadow: var(--focus-ring);
+}
 
 /* ===== DECO LAYER ===== */
 .deco-layer {
@@ -145,6 +205,7 @@ body {
   margin: 30px auto 10px;
   position: relative;
   z-index: 10;
+  padding: 0 10px;
 }
 
 /* ===== BOOT ===== */
@@ -422,7 +483,7 @@ body {
   font-size: 10px;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: 8px;
+  margin-left: auto;
 }
 
 /* ===== SOCIAL HANDLE HINT ===== */
@@ -493,6 +554,14 @@ body {
 .badge-row span:nth-child(5) { background: #f00; color: #ff0; border-color: #f00; }
 .badge-row span:nth-child(6) { background: #0f0; color: #000; border-color: #0f0; }
 .badge-row span:nth-child(10) { background: #00a; color: #fff; border-color: #00f; }
+/* Lure badge: shiny enough to notice, still reads as a static badge */
+.badge-row #tsundereBadge {
+  background: linear-gradient(180deg, #ffe45e, #ff69b4 55%, #b026ff);
+  color: #2b000a;
+  border-color: #ffd700;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.65), inset 0 0 6px rgba(255, 255, 255, 0.5);
+}
 
 /* ===== FOOTER ===== */
 .footer {
@@ -513,7 +582,10 @@ body {
 
 /* Classic link row — same era, just easier to see */
 .footer-links {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   margin: 6px 0 10px;
   padding: 6px 4px;
   border-top: 1px solid #222;
@@ -835,6 +907,33 @@ body {
 }
 .player-btn.play-btn:active { border-style: solid; transform: scale(0.95); }
 .player-btn.play-btn.paused-btn { background: linear-gradient(180deg, #888, #444); border-color: #888; }
+.midi-eq {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 12px;
+  margin-top: 4px;
+}
+.midi-eq span {
+  width: 3px;
+  height: 4px;
+  background: #0f0;
+  box-shadow: 0 0 4px #0f0;
+  animation: eqBounce 0.35s ease-in-out infinite alternate;
+}
+.midi-eq span:nth-child(2) { animation-delay: 0.05s; background: #ff0; }
+.midi-eq span:nth-child(3) { animation-delay: 0.1s; background: #f0f; }
+.midi-eq span:nth-child(4) { animation-delay: 0.15s; background: #0ff; }
+.midi-eq span:nth-child(5) { animation-delay: 0.2s; background: #ff69b4; }
+.midi-eq span:nth-child(6) { animation-delay: 0.25s; background: #0f0; }
+.midi-eq span:nth-child(7) { animation-delay: 0.3s; background: #ff0; }
+.midi-eq span:nth-child(8) { animation-delay: 0.08s; background: #0ff; }
+@keyframes eqBounce {
+  from { height: 3px; }
+  to { height: 12px; }
+}
+.player-panel.paused .midi-eq span { animation-play-state: paused; height: 3px; }
+
 .player-vol-wrap { margin-left: auto; display: flex; align-items: center; }
 .player-vol-wrap input[type="range"] {
   width: 55px;
@@ -1011,6 +1110,23 @@ body {
   letter-spacing: 1px;
 }
 
+@media (max-width: 900px) {
+  .sys-bar {
+    flex-wrap: wrap;
+    overflow: visible;
+    row-gap: 2px;
+  }
+  .sys-bar marquee {
+    flex: 1 1 100%;
+    order: 3;
+  }
+  .sys-motion {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .wrapper { margin-top: 52px; }
+}
+
 @media (max-width: 600px) {
   .hero-area { height: 220px; }
   .hero-area .hero-img { height: 170px !important; }
@@ -1019,6 +1135,21 @@ body {
   .hero-area .hero-img:nth-child(6) { display: none; }
   .header h1 { font-size: 20px; letter-spacing: 2px; }
   .deco-layer img { display: none; }
+  .wrapper { padding: 0 8px 8px; padding-bottom: 36px; margin-top: 56px; }
+  .aim-window {
+    position: static !important;
+    width: 100%;
+    max-width: none;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 8px 0 40px;
+  }
+  .aim-msgs { max-height: 120px; }
+  .fake-load { grid-template-columns: 1fr 1fr auto; }
+  .tracker { font-size: 10px; }
+  .stars { display: block; margin: 6px 0 0; }
 }
 
 /* ===== BAKA EASTER EGG ===== */
@@ -1060,7 +1191,7 @@ button:focus-visible,
 input:focus-visible,
 .player-btn:focus-visible,
 .stars span[data-v]:focus-visible,
-.badge-row .motion-toggle:focus-visible {
+.sys-motion:focus-visible {
   box-shadow: var(--focus-ring);
 }
 
@@ -1072,20 +1203,6 @@ input:focus-visible,
   height: 100%;
   pointer-events: none;
   z-index: 99990;
-}
-
-/* ===== MOTION TOGGLE BADGE ===== */
-.badge-row .motion-toggle {
-  cursor: pointer;
-  background: #111;
-  color: #0ff;
-  border-color: #0ff;
-  user-select: none;
-}
-.badge-row .motion-toggle[aria-pressed="true"] {
-  background: #033;
-  color: #ff0;
-  border-color: #ff0;
 }
 
 /* ===== GUESTBOOK AREA ===== */
@@ -1106,7 +1223,15 @@ html.reduce-motion .blog-link,
 html.reduce-motion .aim-dot,
 html.reduce-motion .deco-layer img,
 html.reduce-motion .hero-area .hero-img,
-html.reduce-motion .tsun-box::before {
+html.reduce-motion .tsun-box::before,
+html.reduce-motion .geocities-banner,
+html.reduce-motion .rainbow-text,
+html.reduce-motion .sparkle-divider span,
+html.reduce-motion .construction-bar,
+html.reduce-motion .midi-eq span,
+html.reduce-motion .new-extra,
+html.reduce-motion .gb-btn,
+html.reduce-motion .guestbook-cta .gb-btn {
   animation: none !important;
 }
 html.reduce-motion .deco-layer img,
@@ -1133,7 +1258,15 @@ html.reduce-motion marquee {
   html:not(.motion-force) .aim-dot,
   html:not(.motion-force) .deco-layer img,
   html:not(.motion-force) .hero-area .hero-img,
-  html:not(.motion-force) .tsun-box::before {
+  html:not(.motion-force) .tsun-box::before,
+  html:not(.motion-force) .geocities-banner,
+  html:not(.motion-force) .rainbow-text,
+  html:not(.motion-force) .sparkle-divider span,
+  html:not(.motion-force) .construction-bar,
+  html:not(.motion-force) .midi-eq span,
+  html:not(.motion-force) .new-extra,
+  html:not(.motion-force) .gb-btn,
+  html:not(.motion-force) .guestbook-cta .gb-btn {
     animation: none !important;
   }
   html:not(.motion-force) #particleFx,
@@ -1364,6 +1497,7 @@ html.reduce-motion marquee {
   text-shadow: 0 0 1px #fff;
 }
 .ad-88:active { border-style: inset; }
+.ad-wa { background: linear-gradient(180deg, #ff9, #f80); color: #000; border-color: #f80; }
 .ad-rp { background: linear-gradient(180deg, #9cf, #06c); color: #fff; border-color: #06c; }
 .ad-af { background: linear-gradient(180deg, #fc6, #c60); color: #000; border-color: #c60; }
 .ad-ns { background: linear-gradient(180deg, #6f6, #060); color: #fff; border-color: #0f0; }

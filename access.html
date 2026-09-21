@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIF v4.2.0 - Android Intrusion Framework</title>
+<meta name="description" content="AIF - Android Intrusion Framework. Session manager. Nothing to see here.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<style>
+  :root {
+    --g: #0f0;
+    --dim: #555;
+    --wh: #cfc;
+    --red: #f33;
+    --yel: #ff0;
+    --cyan: #5ff;
+    --pink: #ff69b4;
+    --mag: #ff00ff;
+    --bg: #000;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--g);
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app { display: flex; flex-direction: column; height: 100vh; }
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1c1c1c;
+    color: #ddd;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #111;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .titlebar .menu { display: flex; gap: 12px; }
+  .titlebar .menu span { cursor: pointer; }
+  .titlebar .menu span:hover { color: #fff; }
+  .titlebar .tb-title { margin-left: auto; color: #888; letter-spacing: 1px; }
+  .titlebar .tb-btns { display: flex; gap: 4px; }
+  .titlebar .tb-btn {
+    width: 20px; height: 18px;
+    background: #2c2c2c;
+    border: 1px solid #444;
+    color: #aaa;
+    font-size: 10px;
+    line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .titlebar .tb-btn.close { color: #fff; background: #c03; }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1c1c1c;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+  .toolbar .tbtn {
+    font-family: inherit;
+    font-size: 11px;
+    color: var(--g);
+    background: #111;
+    border: 1px solid #1f4f1f;
+    padding: 4px 10px;
+    cursor: default;
+  }
+  .toolbar .tbtn:active { background: #1f1f1f; }
+  .toolbar .tsep { width: 1px; height: 18px; background: #222; }
+  .prog-wrap {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+  }
+  .prog-label { font-size: 10px; color: var(--dim); letter-spacing: 1px; white-space: nowrap; }
+  .prog-track { flex: 1; height: 12px; background: #0a0a0a; border: 1px solid #1f4f1f; overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, #060, var(--g)); }
+  .prog-pct { font-size: 10px; color: var(--g); min-width: 30px; text-align: right; }
+
+  .term {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 10px;
+    font-size: clamp(11px, 2.7vw, 14px);
+    line-height: 1.5;
+    overscroll-behavior: contain;
+    word-break: break-word;
+  }
+  .term::-webkit-scrollbar { width: 8px; }
+  .term::-webkit-scrollbar-track { background: #000; }
+  .term::-webkit-scrollbar-thumb { background: #1a1a1a; }
+  .l { margin: 0; }
+  .l-cmd { color: var(--wh); white-space: pre-wrap; }
+  .l-cmd .pp { color: var(--cyan); }
+  .l-ok { color: var(--g); }
+  .l-plus { color: var(--cyan); }
+  .l-star { color: var(--dim); }
+  .l-warn { color: var(--yel); }
+  .l-err { color: var(--red); font-weight: bold; }
+  .l-hex { color: #8f8; font-size: 0.92em; white-space: pre; line-height: 1.35; }
+  .l-bar { color: var(--g); white-space: pre; }
+  .caret { display: inline-block; color: var(--g); animation: blink 1s step-end infinite; font-weight: normal; }
+  .caret.gone { display: none; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .statusbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #1c1c1c;
+    color: #aaa;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-top: 1px solid #111;
+    flex-shrink: 0;
+    user-select: none;
+    letter-spacing: 0.5px;
+  }
+  .statusbar .on { color: var(--g); }
+  .statusbar .b { color: var(--dim); }
+  .statusbar .right { margin-left: auto; color: var(--dim); }
+
+  .notif {
+    position: fixed;
+    top: 10px; left: 50%;
+    transform: translate(-50%, -160%);
+    width: 88%;
+    max-width: 360px;
+    background: #202124;
+    color: #e8eaed;
+    border-radius: 16px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+    z-index: 50;
+    transition: transform 0.35s ease;
+  }
+  .notif.show { transform: translate(-50%, 0); }
+  .notif .n-head { display: flex; justify-content: space-between; color: #9aa0a6; font-size: 10px; margin-bottom: 4px; }
+  .notif .n-title { font-weight: bold; font-size: 12px; }
+  .notif .n-body { color: #bdc1c6; font-size: 12px; margin-top: 2px; }
+  .notif .n-bar { height: 4px; border-radius: 2px; background: #3c4043; margin-top: 8px; overflow: hidden; }
+  .notif .n-bar span { display: block; height: 100%; background: #8ab4f8; width: 0%; }
+
+  .usbdialog {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 20px;
+  }
+  .usbdialog.show { opacity: 1; pointer-events: auto; }
+  .usd-box {
+    width: 100%;
+    max-width: 340px;
+    background: #202124;
+    border-radius: 14px;
+    color: #e8eaed;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+  }
+  .usd-title { padding: 14px 16px 4px; font-size: 13px; font-weight: bold; }
+  .usd-text { padding: 4px 16px; font-size: 12px; color: #bdc1c6; line-height: 1.5; }
+  .usd-fp { padding: 8px 16px; font-size: 11px; color: #8ab4f8; word-break: break-all; line-height: 1.6; }
+  .usd-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 10px 12px; }
+  .usd-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: #8ab4f8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+  }
+  .usd-btn.ok { color: #fff; background: #1a73e8; }
+
+  .reveal {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    background-image:
+      radial-gradient(#ff69b4 1px, transparent 1px),
+      radial-gradient(#9b30ff 1px, transparent 1px);
+    background-size: 40px 40px, 20px 20px;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .reveal.show { opacity: 1; pointer-events: auto; }
+  .reveal-box {
+    background: rgba(0,0,0,0.92);
+    border: 3px ridge var(--mag);
+    box-shadow: 0 0 30px rgba(255,0,255,0.4);
+    max-width: 460px;
+    width: 100%;
+    padding: 20px;
+    max-height: 92vh;
+    overflow-y: auto;
+    text-align: center;
+  }
+  .reveal-title {
+    font-size: clamp(20px, 5vw, 30px);
+    font-weight: bold;
+    color: var(--pink);
+    text-shadow: 0 0 15px var(--mag);
+    letter-spacing: 2px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  }
+  .reveal-from { font-size: 11px; color: var(--cyan); margin: 6px 0 12px; letter-spacing: 1px; }
+  .reveal-body { text-align: left; color: #ddd; font-size: 13px; line-height: 1.6; }
+  .reveal-body p { margin-bottom: 10px; }
+  .reveal-body b { color: var(--yel); }
+  .reveal-body .hf { color: var(--pink); }
+  .kawaii { color: var(--pink); }
+  .reveal-redirect {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--g);
+    border: 1px dashed var(--g);
+    background: #050505;
+    padding: 8px;
+    letter-spacing: 1px;
+  }
+  .reveal-redirect a { color: var(--cyan); }
+  .reveal-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 22px;
+    background: linear-gradient(180deg, var(--pink), #cc0066);
+    color: #fff;
+    border: 2px ridge var(--pink);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: glowPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 5px var(--pink); }
+    50% { box-shadow: 0 0 25px var(--pink); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="titlebar">
+    <div class="menu">
+      <span>File</span><span>Edit</span><span>View</span><span>Tools</span><span>Exploit</span><span>Help</span>
+    </div>
+    <span class="tb-title">AIF v4.2.0</span>
+    <div class="tb-btns">
+      <span class="tb-btn">&minus;</span>
+      <span class="tb-btn">&#9633;</span>
+      <span class="tb-btn close">&#10005;</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="tbtn" type="button">SCAN</button>
+    <button class="tbtn" type="button">CONNECT</button>
+    <button class="tbtn" type="button">EXPLOIT</button>
+    <span class="tsep"></span>
+    <button class="tbtn" type="button">DUMP</button>
+    <button class="tbtn" type="button">INJECT</button>
+    <button class="tbtn" type="button">PAYLOAD</button>
+    <div class="prog-wrap">
+      <span class="prog-label">EXPLOITATION</span>
+      <span class="prog-track"><span class="prog-fill" id="progFill"></span></span>
+      <span class="prog-pct" id="progPct">0%</span>
+    </div>
+  </div>
+
+  <div class="term" id="term" aria-label="Session log"></div>
+
+  <div class="statusbar">
+    <span class="on">&#9679; SESSION #1 ACTIVE</span>
+    <span class="b">TARGET:</span> <span id="statTarget">...</span>
+    <span class="b">PORT:</span> 5555
+    <span class="b">RX:</span> <span id="statRx">0.00 MB</span>
+    <span class="b">PKTS:</span> <span id="statPk">0</span>
+    <span class="right">AIF // ROOT // 2026</span>
+  </div>
+</div>
+
+<div class="notif" id="notif" aria-hidden="true">
+  <div class="n-head"><span>System UI</span><span id="notifClock">12:4_</span></div>
+  <div class="n-title">USB debugging connected</div>
+  <div class="n-body">Charging this device via USB. Tap to view options.</div>
+  <div class="n-bar"><span id="notifBar"></span></div>
+</div>
+
+<div class="usbdialog" id="usbDlg" aria-hidden="true">
+  <div class="usd-box">
+    <div class="usd-title">Allow USB debugging?</div>
+    <div class="usd-text">The computer's RSA key fingerprint is:</div>
+    <div class="usd-fp" id="usdFp">...</div>
+    <div class="usd-foot">
+      <button class="usd-btn" type="button">CANCEL</button>
+      <button class="usd-btn ok" type="button">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="reveal" id="reveal" aria-hidden="true">
+  <div class="reveal-box">
+    <div class="reveal-title">JUST KIDDING!! <span class="kawaii">(&#8801;&#x25E1;&#8801;)</span></div>
+    <div class="reveal-from">- from your friendly neighborhood MASKED TSUNDERE: <b style="color:#0ff;">YUMERIA</b></div>
+    <div class="reveal-body">
+      <p>That whole scary screen? <b>100% pretend.</b> Little HTML theater. I did <b>NOT</b> hack your phone. I can't even hack my own router. (Two years. Don't ask.)</p>
+      <p>Your photos, your chats, your secrets? All safe. Although... your battery is at <b id="battPct">??</b>% right now. Plug it in, baka.</p>
+      <p>But you <b>panicked</b>, didn't you?? Heart going <span class="hf">boom-boom</span>. Your little face all scrunched up. I wish I could've seen it. That's the real hack - I hacked your <b>feelings</b>. So easy. So fun. <span class="kawaii">(&#9685;&#x203F;&#9685;)</span></p>
+      <p><b>PWNED.</b> By me. On purpose. Zero regrets. <span class="kawaii">(&#x2267;&#x25BD;&#x2266;)</span></p>
+    </div>
+    <div class="reveal-redirect">
+      REDIRECTING TO <a href="https://yumeria.dev">YUMERIA.DEV</a> IN <span id="cd">8</span>...
+    </div>
+    <a class="reveal-link" href="https://yumeria.dev">I'M NOT WAITING, BAKA &#8594;</a>
+  </div>
+</div>
+
+<noscript>
+  <p style="background:#000;color:#0f0;font-family:monospace;padding:20px;text-align:center;">
+    PSST. THIS WAS A JOKE. NOTHING HAPPENED TO YOUR PHONE.
+    <a href="https://yumeria.dev" style="color:#0ff;">GO TO YUMERIA.DEV &#8594;</a>
+  </p>
+</noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var term = document.getElementById('term');
+  var progFill = document.getElementById('progFill');
+  var progPct = document.getElementById('progPct');
+  var statTarget = document.getElementById('statTarget');
+  var statRx = document.getElementById('statRx');
+  var statPk = document.getElementById('statPk');
+  var notif = document.getElementById('notif');
+  var notifBar = document.getElementById('notifBar');
+  var usbDlg = document.getElementById('usbDlg');
+  var usdFp = document.getElementById('usdFp');
+  var reveal = document.getElementById('reveal');
+  var cd = document.getElementById('cd');
+  var battPct = document.getElementById('battPct');
+
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function addLog(type, html) {
+    var d = document.createElement('div');
+    d.className = 'l l-' + type;
+    d.innerHTML = html;
+    term.appendChild(d);
+    term.scrollTop = term.scrollHeight;
+    return d;
+  }
+
+  function addCmd(text) {
+    return new Promise(function (resolve) {
+      var d = document.createElement('div');
+      d.className = 'l l-cmd';
+      d.innerHTML = '<span class="pp">root@aif:/#</span> <span class="cmd-text"></span><span class="caret">&#9608;</span>';
+      var ct = d.querySelector('.cmd-text');
+      term.appendChild(d);
+      var i = 0;
+      var iv = setInterval(function () {
+        i++;
+        ct.textContent = text.slice(0, i);
+        term.scrollTop = term.scrollHeight;
+        if (i >= text.length) {
+          clearInterval(iv);
+          var c = d.querySelector('.caret');
+          c.parentNode.removeChild(c);
+          resolve();
+        }
+      }, 10);
+    });
+  }
+
+  function setProg(p) {
+    progFill.style.width = p + '%';
+    progPct.textContent = p + '%';
+  }
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function randHex(len) {
+    var s = '', c = '0123456789ABCDEF';
+    for (var i = 0; i < len; i++) s += c[Math.floor(Math.random() * 16)];
+    return s;
+  }
+  function hexRow() {
+    var bytes = [], i;
+    for (i = 0; i < 16; i++) bytes.push(randHex(2));
+    var hex = '';
+    for (i = 0; i < 8; i++) hex += bytes[i] + ' ';
+    hex += '  ';
+    for (i = 8; i < 16; i++) hex += bytes[i] + (i < 15 ? ' ' : '');
+    var ascii = '';
+    for (i = 0; i < 16; i++) {
+      var c = parseInt(bytes[i], 16);
+      ascii += (c >= 32 && c < 127) ? String.fromCharCode(c) : '.';
+    }
+    return '0000' + randHex(4).toLowerCase() + '  ' + hex + '  |' + ascii + '|';
+  }
+
+  var ua = navigator.userAgent || '';
+  var model = 'unknown-device';
+  var m = /Android [\d.]+; [^;]+; ([^;]+) Build\//.exec(ua);
+  if (m) model = m[1].trim();
+  else if (ua.indexOf('iPhone') >= 0) {
+    var im = /CPU iPhone OS (\d+)[_.](\d+)?/.exec(ua);
+    model = im ? 'iPhone ' + im[1] + (im[2] ? '.' + im[2] : '') : 'iPhone';
+  } else if (ua.indexOf('Macintosh') >= 0) model = 'Macintosh';
+  else if (ua.indexOf('Windows') >= 0) model = 'Windows PC';
+
+  var osStr = 'Unknown OS';
+  var av = /Android ([\d.]+)/.exec(ua);
+  if (av) osStr = 'Android ' + av[1];
+  else if (ua.indexOf('iPhone') >= 0) {
+    var iv = /CPU iPhone OS (\d+)[_.](\d+)?/.exec(ua);
+    osStr = 'iOS ' + (iv ? iv[1] + (iv[2] ? '.' + iv[2] : '') : '?');
+  } else osStr = navigator.platform || 'Unknown OS';
+
+  var screenStr = (screen.width || '?') + 'x' + (screen.height || '?');
+  var cores = navigator.hardwareConcurrency || '?';
+  var mem = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : '?';
+  var lang = navigator.language || '?';
+  var tz = (function () {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || '?'; } catch (e) { return '?'; }
+  })();
+  var batt = null;
+  if (navigator.getBattery) {
+    navigator.getBattery().then(function (b) { batt = Math.round(b.level * 100); });
+  }
+
+  var imei = '35';
+  var i;
+  for (i = 0; i < 13; i++) imei += randInt(0, 9);
+  var serial = randHex(8);
+  var mac = 'AA:BB:' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2);
+  var ip = '192.168.' + randInt(0, 3) + '.' + randInt(2, 254);
+  var net = ua.indexOf('iPhone') >= 0 ? 'LTE (Cell)' : 'Wi-Fi (5GHz)';
+
+  var rx = 1.1, pk = 240;
+  var statIv = setInterval(function () {
+    rx += Math.random() * 0.9;
+    pk += randInt(3, 22);
+    statRx.textContent = rx.toFixed(2) + ' MB';
+    statPk.textContent = pk;
+  }, 600);
+
+  var clockIv = setInterval(function () {
+    var d = new Date();
+    var h = d.getHours(), mi = d.getMinutes();
+    notifClock.textContent = h + ':' + ('0' + mi).slice(-2);
+  }, 500);
+
+  function notifShow() {
+    notif.classList.add('show');
+    var w = 0;
+    var iv = setInterval(function () {
+      w += randInt(3, 9);
+      notifBar.style.width = Math.min(w, 100) + '%';
+      if (w >= 100) clearInterval(iv);
+    }, 90);
+  }
+  function notifHide() { notif.classList.remove('show'); }
+
+  function usbShow() {
+    usdFp.textContent = randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
+      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
+      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
+      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2);
+    usbDlg.classList.add('show');
+  }
+  function usbHide() { usbDlg.classList.remove('show'); }
+
+  var revealed = false;
+  function showReveal() {
+    if (revealed) return;
+    revealed = true;
+    clearInterval(statIv);
+    clearInterval(clockIv);
+    notifHide();
+    usbHide();
+    if (batt != null) battPct.textContent = batt;
+    else battPct.textContent = randInt(8, 23);
+    reveal.classList.add('show');
+    var secs = 8;
+    cd.textContent = secs;
+    var iv = setInterval(function () {
+      secs--;
+      if (secs <= 0) {
+        clearInterval(iv);
+        window.location.replace('https://yumeria.dev');
+        return;
+      }
+      cd.textContent = secs;
+    }, 1000);
+  }
+
+  async function main() {
+    setTimeout(notifShow, 500);
+    setTimeout(notifHide, 1600);
+    setTimeout(usbShow, 1800);
+    setTimeout(usbHide, 3000);
+
+    addLog('star', '[*] AIF v4.2.0 - Android Intrusion Framework');
+    await wait(60);
+    addLog('star', '[*] Loading exploit modules ............ OK (21/21)');
+    await wait(80);
+    addLog('ok', '[+] Kernel interface ready');
+    await wait(60);
+    setProg(5);
+
+    await addCmd('scan --target auto');
+    await wait(80);
+    addLog('star', '[*] Scanning local network for Android devices...');
+    await wait(90);
+    addLog('plus', '[+] 1 device(s) found');
+    await wait(60);
+    statTarget.textContent = model;
+    addLog('plus', '[+] MODEL: ' + model + ' | OS: ' + osStr);
+    await wait(60);
+    addLog('plus', '[+] SERIAL: ' + serial + ' | IMEI: ' + imei);
+    await wait(60);
+    addLog('plus', '[+] MAC: ' + mac + ' | IP: ' + ip + ' | NET: ' + net);
+    await wait(60);
+    addLog('plus', '[+] SCREEN: ' + screenStr + ' | CORES: ' + cores + ' | RAM: ' + mem);
+    await wait(60);
+    setProg(15);
+
+    await addCmd('adb connect ' + ip + ':5555');
+    await wait(90);
+    addLog('plus', '[+] Connected - root shell acquired (adbd as ROOT)');
+    await wait(70);
+    addLog('plus', '[+] RSA key verified - trusted host');
+    await wait(60);
+    setProg(28);
+
+    await addCmd('exploit -p bypass-lockscreen');
+    await wait(80);
+    addLog('plus', '[+] Screen lock bypassed in 0.42s | PIN CACHED: ****');
+    await wait(60);
+    setProg(42);
+
+    await addCmd('dump contacts2.db');
+    await wait(80);
+    addLog('plus', '[+] ' + randInt(180, 420) + ' contacts exported -> /sdcard/DCIM/.cache/contacts.csv');
+    await wait(60);
+    addLog('plus', '[+] ' + randInt(400, 2400) + ' SMS exported | ' + randInt(900, 5200) + ' photos indexed');
+    await wait(60);
+    setProg(58);
+
+    addLog('star', '[*] Snapshotting application data...');
+    await wait(60);
+    var i;
+    for (i = 0; i < 2; i++) {
+      addLog('hex', hexRow());
+      await wait(50);
+    }
+    addLog('plus', '[+] Heap snapshot captured (' + randInt(12, 64) + '.' + randInt(0, 9) + ' MB)');
+    await wait(60);
+    setProg(74);
+
+    await addCmd('enable gps --stream');
+    await wait(70);
+    addLog('plus', '[+] GPS hijacked - location stream active (accuracy 3m)');
+    await wait(60);
+
+    await addCmd('inject persistence --payload yumeria.bin');
+    await wait(70);
+    addLog('bar', '[####################] 100% - payload delivered');
+    addLog('plus', '[+] Persistent backdoor installed (hidden: /system/bin/.moe)');
+    await wait(60);
+    addLog('plus', '[+] Remote shell established - session #1 open');
+    await wait(60);
+    setProg(92);
+
+    addLog('warn', '[!] WARNING: DEVICE FULLY COMPROMISED');
+    await wait(50);
+    addLog('warn', '[!] ALL LOCAL DATA HAS BEEN EXFILTRATED');
+    await wait(50);
+    addLog('err', '[!] OPERATION COMPLETE - TARGET: ' + model);
+    await wait(100);
+    setProg(100);
+    await wait(500);
+
+    showReveal();
+  }
+
+  main();
+})();
+</script>
+</body>
+</html>

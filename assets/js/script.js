@@ -146,7 +146,7 @@ var SITE = {
   popupMsgs: {
     info: [
       'SYSTEM OVERFLOW: TSUNDERE DETECTED',
-      'Yumeria is a masked tsundere who posts kigurumi and cosplay photos.<br>She also plays with AI art and codes sometimes.<br><br>Why are you reading this? Go follow her already, baka!'
+      'Welcome to my corner of the web. It\'s not like I built it for YOU or anything... you just happened to show up. Hmph.<br><br>YUMERIA = masked tsundere friend. Kigurumi + cosplay pics, AI art experiments, cursed code, and one (1) song on loop. Everything here is broken ON PURPOSE. Probably.<br><br>Start with the links up top, sign the guestbook like a good baka, and don\'t stare too long. The mask stays ON.'
     ],
     webring: [
       'WEBRING',
@@ -155,6 +155,14 @@ var SITE = {
     credits: [
       'CREDITS',
       'Site by: YUMERIA (with Notepad.exe, like a real dev)<br>Photos: YUMERIA<br>Hosted on: GeoCities<br><br>Thanks for visiting, I guess. &#x2665;'
+    ],
+    profile: [
+      'MASTER PROFILE // DO NOT STEAL (I WILL KNOW)',
+      '<b style="color:#ff69b4;">YUMERIA</b> — your masked tsundere friend. Emphasis on <i>masked</i>. The face stays hidden, the ego stays huge.<br><br>NAME: secret. AGE: 19 forever (Y2K froze me, it\'s science). LOCATION: behind the mask, duh.<br>STATUS: online (unfortunately for you). MOOD: dere — DENIED. Ask again and it\'s still denied.<br><br>LIKES: kigurumi, cosplay battle-ready fits, AI art, cursed code, coffee, <b>Promise</b> by Kohmi Hirose on loop. FOREVER.<br>DISLIKES: being perceived, right-click thieves, people who pause my song.<br>CRUSH: n-nobody!! Mind your business, baka!!<br><br><span style="color:#888;">Translation: thanks for reading my profile. Don\'t get used to it.</span>'
+    ],
+    rules: [
+      'SITE RULEZ (READ OR PERISH)',
+      '<b>1. I\'m always right.</b> Even when I\'m wrong, see rule 1. That\'s just how it works here.<br><b>2. You are baka.</b> This is science. Peer-reviewed. By me. Don\'t argue, you\'ll lose.<br><b>3. MASK STAYS ON.</b> No, you can\'t see. No, stop asking. No, a sneak peek is not happening.<br><b>4. Sign the guestbook.</b> Three lonely entries from 2003 are waiting. Don\'t leave them hanging, coward.<br><b>5. Hands off my pixels.</b> I count them every night and I WILL notice.<br><b>6. If it looks broken, it\'s a feature.</b> If it looks cute, it\'s me.<br><br>Violation = instant baka certification. No appeals. ...Okay, maybe one appeal, if you bring coffee.'
     ]
   }
 };
@@ -215,9 +223,10 @@ function applyMotionPreference(mode) {
   var toggle = document.getElementById('motionToggle');
   if (toggle) {
     toggle.setAttribute('aria-pressed', motionReduced ? 'true' : 'false');
-    toggle.textContent = motionReduced
-      ? 'OK FINE, FLASH AGAIN'
-      : 'DISABLE FLASHING, COWARD';
+    toggle.setAttribute('aria-label', motionReduced
+      ? 'Enable flashing animations'
+      : 'Disable flashing animations');
+    toggle.textContent = motionReduced ? 'FLASH: OFF' : 'FLASH: ON';
   }
 }
 
@@ -233,22 +242,23 @@ function initMotionToggle() {
   applyMotionPreference(mode);
 
   var toggle = document.getElementById('motionToggle');
-  if (!toggle) return;
-  function flip() {
-    var next = isMotionReduced() ? 'full' : 'reduce';
-    storageSet(SITE.storageKeys.motion, next);
-    applyMotionPreference(next);
-  }
-  toggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    flip();
-  });
-  toggle.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      flip();
+  if (toggle) {
+    function flip() {
+      var next = isMotionReduced() ? 'full' : 'reduce';
+      storageSet(SITE.storageKeys.motion, next);
+      applyMotionPreference(next);
     }
-  });
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      flip();
+    });
+    toggle.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        flip();
+      }
+    });
+  }
 }
 
 // ===== POPUP + FOCUS TRAP =====

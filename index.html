@@ -18,13 +18,372 @@
 <meta name="twitter:title" content="~*~YUMERIA'S SITE~*~">
 <meta name="twitter:description" content="Your masked tsundere friend. Kigurumi, cosplay, AI experiments, and chaos.">
 <meta name="twitter:image" content="https://yumeria.dev/img/og-image.jpg">
+<meta name="generator" content="Notepad.exe (with a very obedient robot, DON'T ASK)">
+<meta name="y2k-compliance" content="definitely maybe">
+<meta name="rating" content="TSUNDERE - baka discretion advised">
+<style>
+  /* === YUMERIA Y2K extras (inline so Notepad.exe stays pure) === */
+  .poll-box, .linkme-box, .y2k-box { border: 2px ridge #ff00ff; background: #0a0a0a; padding: 8px 10px; font-size: 11px; line-height: 1.6; }
+  .poll-box { border-color: #ffd700; color: #ffe97a; }
+  .linkme-box { border-color: #0f0; color: #8f8; }
+  .y2k-box { border-color: #0f0; color: #0f0; text-align: center; }
+  .mini-title { font-weight: bold; letter-spacing: 2px; font-size: 11px; display: block; margin-bottom: 4px; }
+  .poll-box button, .linkme-box button { background: #c0c0c0; border: 2px outset #fff; font-family: inherit; font-size: 11px; font-weight: bold; padding: 4px 12px; cursor: pointer; }
+  .linkme-code { width: 100%; font-family: inherit; font-size: 9px; background: #000; color: #0f0; border: 1px solid #0f0; padding: 4px; margin-top: 4px; flex: 1; min-height: 42px; resize: none; }
+  .side-banner { position: fixed; top: 40%; z-index: 9990; writing-mode: vertical-rl; font-size: 10px; letter-spacing: 3px; padding: 10px 4px; font-weight: bold; }
+  .side-left { left: 0; background: #ff0066; color: #fff; border: 2px ridge #ff0; transform: rotate(180deg); }
+  .side-right { right: 0; background: #00f; color: #ff0; border: 2px ridge #0ff; }
+  @media (max-width: 1100px) { .side-banner { display: none; } }
+  .rainbow-hr { border: 0; height: 4px; background: linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet); margin: 8px 0; }
+  .triple-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  @media (max-width: 700px) { .triple-row { grid-template-columns: 1fr; } }
+  .triple-row .blog-block { margin-bottom: 0; }
+  .linkme-badge { image-rendering: pixelated; border: 1px solid #0f0; display: inline-block; margin: 4px 0; background: #000; }
+  .linkme-toprow { display: flex; gap: 8px; align-items: center; justify-content: center; margin: 4px 0; }
+  .linkme-toprow button { margin-top: 0; }
+  .dual-row > * {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+  .poll-box .poll-opts,
+  .ego-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    margin: 4px 0 8px;
+  }
+  .poll-box .poll-opts label,
+  .ego-stats > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border: 1px solid #665500;
+    background: #1a1500;
+    padding: 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 0;
+  }
+  .poll-box .poll-opts label {
+    cursor: pointer;
+    justify-content: flex-start;
+  }
+  .ego-stats > div {
+    border-color: #662244;
+    background: #1a0010;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .poll-box .poll-opts label:hover,
+  .poll-box .poll-opts label:has(input:checked) {
+    border-color: #ffd700;
+    background: #332800;
+  }
+  .dual-row .wide-btn { width: 100%; margin-top: auto; }
+  .y2k-box { gap: 4px; justify-content: center; }
+  .y2k-days { font-size: 14px; font-weight: bold; }
+  @media (max-width: 600px) {
+    .poll-box .poll-opts label,
+    .ego-stats > div { flex: 0 0 auto; }
+  }
+  .blink-slow { animation: blink 2s step-end infinite; }
+  html.reduce-motion .triple-row,
+  html.reduce-motion .guestbook-cta .gb-btn { animation: none !important; }
+
+  /* === CRINGE MODE: MAXIMUM GEOCITIES === */
+  .geocities-banner {
+    background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #8b00ff);
+    background-size: 400% 100%;
+    animation: rainbowSlide 3s linear infinite;
+    padding: 8px 12px;
+    text-align: center;
+    border: 3px ridge #ff00ff;
+    margin-bottom: 8px;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .geocities-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+  @keyframes rainbowSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+  }
+  @keyframes shimmer {
+    0% { left: -50%; }
+    100% { left: 150%; }
+  }
+  .geocities-banner .star { display: inline-block; animation: twinkle 0.8s ease-in-out infinite alternate; }
+  .geocities-banner .star:nth-child(2) { animation-delay: 0.2s; }
+  .geocities-banner .star:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes twinkle { 0% { opacity: 0.4; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+
+  .rainbow-text {
+    background: linear-gradient(90deg, #f00, #f90, #ff0, #0f0, #0ff, #00f, #f0f);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rainbowShift 2s linear infinite;
+    font-weight: bold;
+    filter: drop-shadow(2px 2px 0 #000) drop-shadow(-1px -1px 0 #000);
+  }
+  @keyframes rainbowShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .guestbook-cta {
+    background: linear-gradient(135deg, #1a0033, #330033);
+    border: 3px ridge #ff69b4;
+    padding: 12px;
+    text-align: center;
+    margin: 8px 0;
+    font-family: 'Comic Sans MS', cursive;
+    position: relative;
+    overflow: hidden;
+  }
+  .guestbook-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255,105,180,0.05) 10px,
+      rgba(255,105,180,0.05) 20px
+    );
+    pointer-events: none;
+  }
+  .guestbook-cta .gb-title {
+    font-size: 16px;
+    color: #ff69b4;
+    text-shadow: 0 0 15px #ff69b4, 2px 2px 0 #000;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .guestbook-cta .gb-sub {
+    font-size: 11px;
+    color: #ff99cc;
+    position: relative;
+    z-index: 1;
+  }
+  .guestbook-cta .gb-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 20px;
+    background: linear-gradient(180deg, #ff69b4, #cc0066);
+    border: 2px ridge #ff00ff;
+    color: #fff;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 1px;
+    animation: glowPulse 1.5s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+  .guestbook-cta .gb-btn:hover {
+    background: #fff;
+    color: #ff69b4;
+  }
+
+  .webring-prominent {
+    background: #000;
+    border: 3px ridge #0ff;
+    padding: 10px;
+    text-align: center;
+    margin: 8px 0;
+    color: #0ff;
+    font-size: 11px;
+  }
+  .webring-prominent .wr-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #0ff;
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+  }
+  .webring-prominent .wr-nav {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .webring-prominent .wr-nav a {
+    color: #0f0;
+    text-decoration: underline;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  .webring-prominent .wr-nav a:hover {
+    color: #ff0;
+    text-shadow: 0 0 8px #ff0;
+  }
+
+  .cringe-quote {
+    background: #0a001a;
+    border-left: 4px solid #f0f;
+    border-right: 4px solid #0ff;
+    padding: 8px 14px;
+    margin: 8px 0;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 12px;
+    color: #ff99cc;
+    text-align: center;
+    font-style: italic;
+    position: relative;
+  }
+  .cringe-quote::before { content: '"'; font-size: 24px; color: #f0f; position: absolute; top: -4px; left: 6px; }
+  .cringe-quote::after { content: '"'; font-size: 24px; color: #0ff; position: absolute; bottom: -8px; right: 6px; }
+
+  .marquee-slow {
+    font-size: 10px;
+    color: #888;
+    border: 1px dashed #333;
+    padding: 3px;
+    margin: 4px 0;
+    background: #050505;
+  }
+
+  .new-extra { font-size: 9px; color: #ff0; background: #f00; border: 1px solid #ff0; padding: 0 4px; animation: blink 0.7s step-end infinite; vertical-align: middle; margin-left: 4px; }
+
+  .tsundere-fact-box {
+    background: linear-gradient(135deg, #0a0020, #200010);
+    border: 2px ridge #f0f;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 11px;
+    color: #ff99cc;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive;
+  }
+  .tsundere-fact-box .tf-title {
+    font-size: 13px;
+    color: #ff0;
+    text-shadow: 0 0 10px #f0f;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+  }
+
+  .sparkle-divider {
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin: 6px 0;
+    user-select: none;
+  }
+  .sparkle-divider span {
+    display: inline-block;
+    animation: sparkleFloat 1.5s ease-in-out infinite;
+  }
+  .sparkle-divider span:nth-child(2) { animation-delay: 0.15s; }
+  .sparkle-divider span:nth-child(3) { animation-delay: 0.3s; }
+  .sparkle-divider span:nth-child(4) { animation-delay: 0.45s; }
+  .sparkle-divider span:nth-child(5) { animation-delay: 0.6s; }
+  .sparkle-divider span:nth-child(6) { animation-delay: 0.75s; }
+  .sparkle-divider span:nth-child(7) { animation-delay: 0.9s; }
+  @keyframes sparkleFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-4px) scale(1.3); opacity: 1; }
+  }
+
+  .construction-bar {
+    height: 8px;
+    background: repeating-linear-gradient(
+      -45deg,
+      #ff0,
+      #ff0 8px,
+      #000 8px,
+      #000 16px
+    );
+    margin: 4px 0;
+    animation: cautionScroll 1s linear infinite;
+  }
+  @keyframes cautionScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 22.6px 0; }
+  }
+
+  .hit-counter-big {
+    display: inline-flex;
+    gap: 3px;
+    background: #000;
+    border: 2px inset #333;
+    padding: 4px 8px;
+    margin: 4px 0;
+  }
+  .hit-counter-big .n {
+    display: inline-block;
+    background: #001a00;
+    padding: 2px 6px;
+    border: 1px solid #0f0;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #0f0;
+    font-family: var(--font-mono);
+    text-shadow: 0 0 6px #0f0;
+  }
+
+  .email-block {
+    background: #0a0a2e;
+    border: 2px ridge #ff0;
+    padding: 8px 12px;
+    text-align: center;
+    margin: 8px 0;
+    font-size: 11px;
+    color: #ff0;
+  }
+  .email-block a {
+    color: #0ff;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .footer-extras {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #333;
+    font-size: 9px;
+    color: #444;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  html.reduce-motion .crt-overlay { opacity: 0.12; }
+</style>
 </head>
 <body>
+<a class="skip-link" href="#main">skip the sparkles, coward</a>
+<div class="crt-overlay" aria-hidden="true"></div>
+<div class="side-banner side-left" aria-hidden="true"><span class="blink">&#x2665; KAWAII &#x2665; CLICK ME &#x2665; BAKA &#x2665;</span></div>
+<div class="side-banner side-right" aria-hidden="true"><span class="blink">!!! UNDER CONSTRUCTION !!! DON'T PERISH !!!</span></div>
 <div class="sys-bar">
   <span class="brand">YUMERIA.dev</span>
+  <button type="button" class="sys-motion" id="motionToggle" aria-pressed="false" aria-label="Disable flashing animations" title="Toggle flashing animations">FLASH: ON</button>
   <span class="sep">|</span>
   <marquee scrollamount="3">
-    POWERED BY NOTEPAD.EXE | <span style="color:#f44;">&#x2605; NEW! BLOG!</span> | <span style="color:#ff0;">MOOD: TSUNDERE</span> | <span style="color:#888;">CPU: 42%</span> | <span style="color:#0f0;">MASK: ON</span> | <span style="color:#f44;">BAKA: <span class="blink">!!</span></span> | <span style="color:#555;">v3.1</span> | <span style="color:#ff69b4;">MEMORY: LEAKING</span> | <span style="color:#f80;">FACE: HIDDEN</span> | <span style="color:#0ff;">TOKEN: OVERFLOW</span> | <span style="color:#ff69b4;">OUTFIT: COORDINATED</span> | <span style="color:#ff0;">COOKIES: EATEN</span> | <span style="color:#fa0;">GPU: MELTING</span> | <span style="color:#0ff;">STYLE: Y2K</span> | <span style="color:#f44;">PING: 999ms</span> | <span style="color:#f4f;">PROTOCOL: MOE</span> | <span style="color:#6cf;">UPTIME: NEVER</span> | <span style="color:#f66;">AGENT: HALLUCINATING</span>
+    POWERED BY NOTEPAD.EXE | <span style="color:#f44;">&#x2605; NEW! BLOG!</span> | <span style="color:#ff0;">MOOD: TSUNDERE (dere denied)</span> | <span style="color:#888;">CPU: 42%</span> | <span style="color:#0f0;">MASK: ON (forever)</span> | <span style="color:#f44;">BAKA: <span class="blink">!!</span> (it's you)</span> | <span style="color:#555;">v3.1</span> | <span style="color:#ff69b4;">MEMORY: LEAKING</span> | <span style="color:#f80;">FACE: HIDDEN</span> | <span style="color:#0ff;">TOKEN: OVERFLOW</span> | <span style="color:#ff69b4;">OUTFIT: COORDINATED</span> | <span style="color:#ff0;">COOKIES: EATEN</span> | <span style="color:#fa0;">GPU: MELTING</span> | <span style="color:#0ff;">STYLE: Y2K</span> | <span style="color:#f44;">PING: 999ms</span> | <span style="color:#f4f;">PROTOCOL: MOE</span> | <span style="color:#6cf;">UPTIME: NEVER</span> | <span style="color:#f66;">AGENT: HALLUCINATING</span> | <span style="color:#ff0;">DIAL-UP: SCREAMING</span> | <span style="color:#ff69b4;">HUMIDITY: MOE</span> | <span style="color:#0f0;">GUESTBOOK: EMPTY (fix it)</span>
   </marquee>
   <span class="sys-date" id="sysDate">--.--.--</span>
   <script>
@@ -62,10 +421,24 @@
   <img data-random class="d20" alt="">
 </div>
 
-<div class="wrapper">
+<main class="wrapper" id="main">
 
 <div class="boot">
   <span style="color:#888;">[BOOT]</span> LOADING... MOE DRIVERS <span style="color:#0f0;">OK</span> | TSUNDERE MODULE <span style="color:#ff0;">ACTIVE</span> | BAKA DETECTOR <span style="color:#f44;">TRIGGERED (you)</span> | SYSTEM <span style="color:#0f0;">READY</span> <span class="blink">&#x2588;</span>
+</div>
+
+<div class="construction-bar" aria-hidden="true"></div>
+
+<div class="geocities-banner">
+  <span class="star">&#x2605;</span>
+  <span class="star">&#x2606;</span>
+  YOU FOUND THE SECRET URL. NOW YOU HAVE TO STAY.
+  <span class="star">&#x2606;</span>
+  <span class="star">&#x2605;</span>
+  <br>
+  <span style="font-size:10px; letter-spacing:1px;">
+    &#x2665; 800x600 • 16-BIT COLOR • MIDI OPTIONAL (LYING) &#x2665;
+  </span>
 </div>
 
 <div class="last-updated" id="lastUpdated">
@@ -77,14 +450,25 @@
 <div class="header">
   <h1>
     <span class="unit">// UNIT: YUMERIA //</span>
-    WELCOME TO MY SITE<blink style="color:#f00;">!!</blink>
+    <span class="rainbow-text">WELCOME TO MY SITE</span><blink style="color:#f00;">!!</blink>
   </h1>
-  <div class="sub">Your masked tsundere friend. Hah, in your dreams, Baka!</div>
+  <div class="sub">Your masked tsundere friend. Hah, in your dreams.</div>
+  <div style="margin-top:6px; font-size:10px; color:#ff69b4; font-family:'Comic Sans MS',cursive; position:relative; z-index:1;">
+    <span class="blink" style="color:#ff0;">&#x2728; HARD HAT + COMPLIMENTS REQUIRED &#x2728;</span>
+  </div>
 </div>
 
 <div class="dual-ticker" aria-hidden="true">
-  <marquee class="tick-sweet" scrollamount="4" direction="left">&#x2665; welcome friend &#x2665; please stay &#x2665; you are valid &#x2665; free hugs (lying) &#x2665; kawaii overload &#x2665;</marquee>
-  <marquee class="tick-mean" scrollamount="5" direction="right">&#x1F6AB; get out &#x1F6AB; who let you in &#x1F6AB; leave &#x1F6AB; baka detected &#x1F6AB; not for you &#x1F6AB;</marquee>
+  <marquee class="tick-sweet" scrollamount="4" direction="left">&#x2665; welcome friend &#x2665; please stay &#x2665; you are valid &#x2665; free hugs (lying) &#x2665; kawaii overload &#x2665; (don't tell the other ticker) &#x2665;</marquee>
+  <marquee class="tick-mean" scrollamount="5" direction="right">&#x1F6AB; get out &#x1F6AB; who let you in &#x1F6AB; leave &#x1F6AB; baka detected &#x1F6AB; not for you &#x1F6AB; okay maybe stay a little &#x1F6AB;</marquee>
+</div>
+
+<div class="cringe-quote">
+  If the page looks unfinished, that's because it IS. Forever. I like it that way. Hmph.
+</div>
+
+<div class="sparkle-divider" aria-hidden="true">
+  <span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span>
 </div>
 
 <div class="ascii-div">-=~*~=-  ~*~  -=~*~=-  ~*~  -=~*~=-</div>
@@ -92,13 +476,14 @@
 <div class="tsun-player-row">
   <div class="tsun-box flex-2">
     <span class="mood">&#x26A1; TSUNDERE POWER LEVEL: CRITICAL &#x26A1;</span>
-    <span class="msg">&#x2728; It's not like I wanted you to visit or anything!! BAKA!! &#x2728;</span>
+    <span class="msg">&#x2728; You may look. You may NOT stare. &#x2728;</span>
   </div>
   <div class="player-panel flex-1" id="musicCtrl">
-    <img class="player-cover" src="img/player.jpg" alt="cover">
+    <img class="player-cover" src="img/player.jpg" alt="album cover for Promise by Kohmi Hirose">
     <div class="player-info">
       <div class="player-song" id="musicTxt">LOADING MUSIC...</div>
       <div class="player-artist" id="playerArtist">Artist Unknown</div>
+      <div class="midi-eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <div class="player-controls">
         <button type="button" class="player-btn" id="prevBtn" disabled aria-label="Previous track">&#x23EE;</button>
         <button type="button" class="player-btn play-btn" id="playBtn" aria-label="Play or pause">&#x25B6;</button>
@@ -152,6 +537,14 @@
   </div>
 </div>
 
+<div class="tsundere-fact-box">
+  <div class="tf-title">&#x1F4A1; MASK PROTOCOL &#x1F4A1;</div>
+  <div>
+    38 renders. All of them crashed at least once. I still posted them.<br>
+    Face stays hidden. Ego does not. Deal with it. &#x2665;
+  </div>
+</div>
+
 <div class="ascii-div">-=~*~=-  ~*~  -=~*~=-</div>
 
 <div class="sect">
@@ -173,36 +566,53 @@
   </div>
 </div>
 
-<div class="dual-row">
+<div class="sparkle-divider" aria-hidden="true">
+  <span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span>
+</div>
+
+<div class="guestbook-cta">
+  <div class="gb-title">&#x1F4DD; SIGN MY GUESTBOOK!! &#x1F4DD;</div>
+  <div class="gb-sub">
+    Three ghosts from 2003 are waiting. Don't leave them hanging.<br>
+    <span style="font-size:9px; color:#888;">(localStorage = your browser's soul. I peek. Maybe.)</span>
+  </div>
+  <button type="button" class="gb-btn" onclick="showPopup('guestbook')">WRITE SOMETHING, COWARD &#x2764;</button>
+</div>
+
+<div class="triple-row">
   <div class="blog-block">
-    <div class="blog-header">&#x2605; BLOG CORNER &#x2605; <span class="blink" style="color:#f44;">NEW!</span> <span class="new-sticker blink">UPDATED!!</span></div>
-    <div class="blog-sub">&#x2728; WORDS, THOUGHTS, RAMBLINGS &#x2728;</div>
+    <div class="blog-header">&#x2605; BLOG &#x2605;</div>
+    <div class="blog-sub">words, thoughts, ramblings</div>
     <div class="blog-divider">~ * ~ * ~ * ~</div>
     <div class="blog-post">
       <span class="blog-post-title">&gt; LATEST: I wrote something lol</span>
       <span class="blog-post-date">[2026.07.25]</span>
     </div>
-    <div class="blog-marquee">
-      <marquee behavior="alternate" scrollamount="3">&#x2665; CLICK THE LINK BELOW, BAKA &#x2665;</marquee>
-    </div>
-    <a href="https://blog.yumeria.dev" target="_blank" rel="noopener noreferrer" class="blog-link">&#x1F4DD; ENTER THE BLOG</a>
-    <div class="blog-footer">UPDATED: WHENEVER I FEEL LIKE IT</div>
+    <a href="https://blog.yumeria.dev" target="_blank" rel="noopener noreferrer" class="blog-link">&#x1F4DD; READ IT</a>
   </div>
   <div class="blog-block">
-    <div class="blog-header">&#x2615; CAFFEINE DEPT &#x2615; <span class="blink" style="color:#ff0;">FUNDS?</span> <span class="new-sticker blink">PLS!!</span></div>
-    <div class="blog-sub">&#x2728; THIS SITE RUNS ON COFFEE AND SPITE &#x2728;</div>
+    <div class="blog-header">&#x1F4F7; PHOTOLOG &#x2605;</div>
+    <div class="blog-sub">travel pics. mask on, obviously.</div>
     <div class="blog-divider">~ * ~ * ~ * ~</div>
-    <div class="coffee-emoji">&#x2615;</div>
-    <div class="coffee-code">&gt; AI notImplementedError: energy == 0<br>&gt; insert coffee to continue</div>
-    <div class="blog-marquee">
-      <marquee behavior="scroll" direction="right" scrollamount="3">&#x2665; I NEED IT. GIVE. NOW. &#x2665;</marquee>
+    <div class="blog-post">
+      <span class="blog-post-title">&gt; NOW: con + travel dumps</span>
+      <span class="blog-post-date">[mask: ON]</span>
     </div>
-    <a href="https://ko-fi.com/yumeria" target="_blank" rel="noopener noreferrer" class="blog-link kofi">&#x2615; FUEL MY DELUSIONS</a>
-    <div class="blog-footer">YOUR COFFEE = MY DEVELOPMENT</div>
+    <a href="https://photolog.yumeria.dev" target="_blank" rel="noopener noreferrer" class="blog-link">&#x1F30D; VIEW PICS</a>
+  </div>
+  <div class="blog-block">
+    <div class="blog-header">&#x2615; KO-FI &#x2615;</div>
+    <div class="blog-sub">this site runs on coffee + spite</div>
+    <div class="blog-divider">~ * ~ * ~ * ~</div>
+    <div class="blog-post">
+      <span class="blog-post-title">&gt; energy == 0 // insert coffee</span>
+      <span class="blog-post-date">[caffeine: LOW]</span>
+    </div>
+    <a href="https://ko-fi.com/yumeria" target="_blank" rel="noopener noreferrer" class="blog-link kofi">&#x2615; FUEL ME</a>
   </div>
 </div>
 
-<div class="ascii-div">*** PHOTO DUMP LOADING... PLEASE WAIT (FOREVER) ***</div>
+<div class="ascii-div">&#x2665;&#xFE0E; *:.｡. PHOTO DUMP LOADING... PLEASE WAIT (FOREVER) .｡.:* &#x2665;&#xFE0E;</div>
 
 <div class="hero-area">
   <img data-random class="hero-img" alt="">
@@ -248,14 +658,41 @@
   </div>
 </div>
 
-<div class="ascii-div">*** SPONSORED BY LITERALLY NO ONE ***</div>
+<div class="dual-row">
+  <div class="linkme-box" style="text-align:center;">
+    <span class="mini-title">&#x1F517; LINK ME, BAKA (steal this button!!)</span>
+    <div class="linkme-toprow">
+      <img class="linkme-badge" src="img/linkme-88x31.png" width="88" height="31" alt="YUMERIA link button - edit me">
+      <button type="button" onclick="var t=document.getElementById('linkmeCode');t.select();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value);}showStaticAlertPopup('STOLEN!!','<span class=&quot;big&quot;>&#x1F517;</span>my button!! stolen!!<br><br>...good. spread my fame, baka!! &#x2665;')">COPY!!</button>
+    </div>
+    <textarea id="linkmeCode" class="linkme-code" rows="2" readonly onclick="this.select()">&lt;a href="https://yumeria.dev"&gt;&lt;img src="https://yumeria.dev/img/linkme-88x31.png" width="88" height="31" alt="YUMERIA"&gt;&lt;/a&gt;</textarea>
+  </div>
+  <div class="y2k-box">
+    <span class="mini-title">&#x1F4BB; Y2K CENTER</span>
+    <div class="y2k-days">DAYS SINCE Y2K: <span id="y2kDays" style="color:#ff0;">LOADING...</span></div>
+    <div>STATUS: <span class="blink" style="color:#f44;">NOT COMPLIANT</span></div>
+    <div style="font-size:8px;color:#555;">certified buggy by nobody</div>
+  </div>
+</div>
 
-<div class="ad-row" aria-label="Fake period advertisements">
-  <button type="button" class="ad-88" data-ad="winamp">Download Winamp</button>
-  <button type="button" class="ad-88 ad-rp" data-ad="realplayer">Get RealPlayer</button>
-  <button type="button" class="ad-88 ad-af" data-ad="angelfire">Free AngelFire</button>
-  <button type="button" class="ad-88 ad-ns" data-ad="netscape">Netscape Now!</button>
-  <button type="button" class="ad-88 ad-ie" data-ad="ie">Best with IE6</button>
+<div class="dual-row">
+  <div class="linkme-box" style="border-color:#ff69b4;color:#ffb6d5;text-align:center;">
+    <span class="mini-title">&#x1F49D; EGO TAMAGOTCHI</span>
+    <div class="ego-stats">
+      <div>hunger<br><span class="blink">STARVING</span></div>
+      <div>happiness<br><span id="egoBar">▓▓▓▓▓▓░░░░ 60%</span></div>
+    </div>
+    <button type="button" class="wide-btn" onclick="document.getElementById('egoBar').textContent='▓▓▓▓▓▓▓▓▓▓ 100% (spoiled)';showStaticAlertPopup('NOM NOM','<span class=&quot;big&quot;>&#x2665;</span>om nom nom!! compliment accepted!!<br><br>...whatever. it was MID. again, baka!!')">FEED!!</button>
+  </div>
+  <div class="poll-box">
+    <span class="mini-title">&#x1F4CA; POLL: R U BAKA?</span>
+    <div class="poll-opts">
+      <label><input type="radio" name="bakaPoll"> yes (honest)</label>
+      <label><input type="radio" name="bakaPoll"> YES (cute)</label>
+      <label><input type="radio" name="bakaPoll"> yesh, #1 fan &#x2665;</label>
+    </div>
+    <button type="button" class="wide-btn" onclick="showStaticAlertPopup('POLL RESULTS','<span class=&quot;big&quot;>&#x1F4CA;</span>results: 100% BAKA<br><br>thanks for your honesty, dummy!! &#x2665;')">VOTE!!</button>
+  </div>
 </div>
 
 <div class="awards-shelf">
@@ -286,6 +723,14 @@
   </span>
 </div>
 
+<div class="ad-row" aria-label="Fake 88 by 31 buttons from 1999">
+  <button type="button" class="ad-88 ad-wa" data-ad="winamp">WINAMP</button>
+  <button type="button" class="ad-88 ad-rp" data-ad="realplayer">RealPlayer</button>
+  <button type="button" class="ad-88 ad-af" data-ad="angelfire">AngelFire</button>
+  <button type="button" class="ad-88 ad-ns" data-ad="netscape">Netscape</button>
+  <button type="button" class="ad-88 ad-ie" data-ad="ie">Get IE6</button>
+</div>
+
 <div class="badge-row">
   <span>BEST VIEWED ON NETSCAPE 4.0</span>
   <span>Best with 800&#x00D7;600</span>
@@ -294,22 +739,54 @@
   <span>&#x2605; YUMERIA FAN &#x2605;</span>
   <span>MADE WITH NOTEPAD.exe</span>
   <span>100% RAW HTML</span>
-  <span id="tsundereBadge">TSUNDERE POWERED</span>
+  <span id="tsundereBadge" title="shiny. totally not suspicious.">&#x2605; TSUNDERE POWERED &#x2605;</span>
   <span>KIGURUMI GANG</span>
   <span class="badge-moe">MOE MOE KYUN</span>
   <span class="badge-baka">WARNING: BAKA</span>
   <span class="badge-kawaii">&#x2665; KAWAII &#x2665;</span>
   <span>BLOG.UPDATES</span>
+  <span style="background:#ff0;color:#f00;border-color:#f00;" class="blink">Y2K READY? NO</span>
+  <span style="background:#000;color:#ff69b4;border-color:#ff69b4;">&#x2665; DERE (DENIED) &#x2665;</span>
+  <span style="background:#0ff;color:#000;border-color:#00f;">DIAL-UP 4EVER</span>
+  <span style="background:#f00;color:#fff;border-color:#900;">DO NOT PERCEIVE ME</span>
+  <span id="hugsBadge" role="button" tabindex="0" title="free* hugs (*not free)" onclick="showStaticAlertPopup('FREE* HUGS','<span class=&quot;big&quot;>&#x2665;</span>*hugs not free. emotional cost: 1 compliment. pay up, baka!!')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showStaticAlertPopup('FREE* HUGS','<span class=&quot;big&quot;>&#x2665;</span>*hugs not free. emotional cost: 1 compliment. pay up, baka!!')}" style="background:#000;color:#ff69b4;border-color:#ff69b4;cursor:pointer;">FREE* HUGS</span>
   <span class="trail-toggle" id="trailToggle" role="button" tabindex="0" title="Cycle cursor trail mode">TRAIL: SPARKLE</span>
-  <span class="motion-toggle" id="motionToggle" role="button" tabindex="0" aria-pressed="false" title="Toggle flashing animations">DISABLE FLASHING, COWARD</span>
+  <span class="new-extra">NEW!</span>
+  <span style="background:#000;color:#0f0;border-color:#0f0;">FREE SPEECH NOW!!</span>
+  <span style="background:#400040;color:#ff00ff;border-color:#f0f;">&#x2605; PINK &#x2605;</span>
+  <span style="background:#000;color:#f44;border-color:#f44;">BAKA DETECTOR v2</span>
+  <span style="background:#001a33;color:#0ff;border-color:#0ff;">COOL SITE AWARD</span>
+  <span style="background:#330000;color:#ff6600;border-color:#ff6600;">&#x1F525; ON FIRE &#x1F525;</span>
+  <span style="background:#000;color:#fff;border-color:#fff;">THIS SITE IS ART</span>
+</div>
+
+<div class="webring-prominent">
+  <div class="wr-title">&#x1F310; &#x2665; KAWAII TSUNDERE WEBRING &#x2665; &#x1F310;</div>
+  <div style="margin-bottom:6px; color:#888; font-size:9px;">members: me, my reflection, and a 404</div>
+  <div class="wr-nav">
+    <a href="#" onclick="showPopup('webring'); return false;">[ &lt;&lt; PREV ]</a>
+    <a href="#" onclick="showPopup('webring'); return false;">[ RANDOM ]</a>
+    <a href="#" onclick="showPopup('webring'); return false;">[ LIST ]</a>
+    <a href="#" onclick="showPopup('webring'); return false;">[ NEXT &gt;&gt; ]</a>
+  </div>
 </div>
 
 <div class="footer">
+  <div class="construction-bar" aria-hidden="true"></div>
   <marquee behavior="scroll" direction="left" scrollamount="2">
-    &#x00A9; 2006 YUMERIA // Hosted on GeoCities // Coded in Notepad // Don't steal my pics, baka
+    &#x00A9; 2006 YUMERIA // Hosted on GeoCities // Coded in Notepad // Don't steal my pics, baka // No bakas were harmed (one was mildly inconvenienced: you)
+  </marquee>
+  <marquee behavior="scroll" direction="right" scrollamount="3" style="color:#ff69b4; font-size:9px;">
+    &#x2665; This page has been visited by exactly 1 person (you, unfortunately) &#x2665; |
+    &#x2605; Optimized for crying at 3AM &#x2605; |
+    &#x2728; Powered by spite and coffee &#x2728;
   </marquee>
   <nav class="footer-links" aria-label="Site links">
     <a href="#" onclick="showPopup('info'); return false;">[ ABOUT ]</a>
+    <span class="fsep">|</span>
+    <a href="#" onclick="showPopup('profile'); return false;">[ PROFILE ]</a>
+    <span class="fsep">|</span>
+    <a href="#" onclick="showPopup('rules'); return false;">[ RULEZ ]</a>
     <span class="fsep">|</span>
     <a href="#" id="footerGuestbook" onclick="showPopup('guestbook'); return false;">[ GUESTBOOK ]</a>
     <span class="fsep">|</span>
@@ -319,14 +796,17 @@
     <span class="fsep">|</span>
     <a href="#" onclick="alert('Email? In this economy? DM me on Instagram, baka.'); return false;">[ EMAIL ]</a>
   </nav>
-  <span class="disclaimer">
-    Best viewed at 800x600 with Netscape Navigator 4.79 or IE 5.5<br>
-    Made with pure HTML, spite and love since 199(ERR_UNKNOWN)<br>
-    MIDI courtesy of absolutely nobody (it&#39;s an MP3, shut up)
-  </span>
+  <div class="footer-extras">
+    Hosted on GitHub Pages. We close our eyes and call it GeoCities.<br>
+    MIDI courtesy of nobody (it's an MP3). Cookies were eaten, not stored.<br>
+    DM the gram if you must. I don't check email. It's 2026. Hmph.
+  </div>
+  <div class="sparkle-divider" aria-hidden="true" style="margin-top:8px;">
+    <span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span><span>&#x2605;</span><span>&#x2728;</span>
+  </div>
 </div>
 
-</div>
+</main>
 
 <div class="sticky-note" id="stickyNote" role="dialog" aria-label="Sticky note">
   <div class="sticky-top" id="stickyTitle">POST-IT.exe</div>
@@ -338,7 +818,7 @@
 
 <div class="aim-window" id="aimBuddy">
   <div class="aim-top" id="aimTitleBar">
-    <img class="aim-avatar" id="aimPic" src="img/avatar.png" alt="">
+    <img class="aim-avatar" id="aimPic" src="img/avatar.png" alt="Yumeria AIM buddy">
     <div class="aim-top-info">
       <div class="aim-top-row">
         <span class="aim-name" id="aimName">YUM3R1A</span>
@@ -350,7 +830,7 @@
   </div>
   <div class="aim-body">
     <div class="aim-chat">
-      <div class="aim-msgs" id="aimMsgs"></div>
+        <div class="aim-msgs" id="aimMsgs" role="log" aria-live="polite" aria-label="AIM chat messages"></div>
       <div class="aim-typing" id="aimTyping"></div>
       <div class="aim-input-wrap">
         <input type="text" id="aimInput" placeholder="Message me, baka..." maxlength="100">
@@ -386,6 +866,10 @@
   <div class="konami-sub">no refunds // expires in 10s // still a baka</div>
 </div>
 
+<script>
+  // Y2K countdown: days since 2000-01-01 (tsundere-certified, slightly wrong on purpose)
+  (function(){var el=document.getElementById('y2kDays');if(!el)return;try{var ms=Date.now()-Date.UTC(2000,0,1);var d=Math.floor(ms/86400000);el.textContent=d+' (and still buggy!!)';}catch(e){el.textContent='TOO MANY';}})();
+</script>
 <script src="assets/js/script.js"></script>
 
 </body>
