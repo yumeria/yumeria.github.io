@@ -372,6 +372,7 @@
   var statRx = document.getElementById('statRx');
   var statPk = document.getElementById('statPk');
   var notif = document.getElementById('notif');
+  var notifClock = document.getElementById('notifClock');
   var notifBar = document.getElementById('notifBar');
   var usbDlg = document.getElementById('usbDlg');
   var usdFp = document.getElementById('usdFp');
@@ -438,31 +439,32 @@
     return '0000' + randHex(4).toLowerCase() + '  ' + hex + '  |' + ascii + '|';
   }
 
-  var ua = navigator.userAgent || '';
-  var model = 'unknown-device';
-  var m = /Android [\d.]+; [^;]+; ([^;]+) Build\//.exec(ua);
-  if (m) model = m[1].trim();
-  else if (ua.indexOf('iPhone') >= 0) {
-    var im = /CPU iPhone OS (\d+)[_.](\d+)?/.exec(ua);
-    model = im ? 'iPhone ' + im[1] + (im[2] ? '.' + im[2] : '') : 'iPhone';
-  } else if (ua.indexOf('Macintosh') >= 0) model = 'Macintosh';
-  else if (ua.indexOf('Windows') >= 0) model = 'Windows PC';
+  function iosVer(ua) {
+    var m = /CPU iPhone OS (\d+)[_.](\d+)?/.exec(ua);
+    return m ? m[1] + (m[2] ? '.' + m[2] : '') : '';
+  }
+  function detectTarget(ua) {
+    var android = /Android ([\d.]+); [^;]+; ([^;]+) Build\//.exec(ua);
+    if (android) return { model: android[2].trim(), os: 'Android ' + android[1], net: 'Wi-Fi (5GHz)' };
+    if (ua.indexOf('iPhone') >= 0) {
+      var ver = iosVer(ua);
+      return { model: ver ? 'iPhone ' + ver : 'iPhone', os: 'iOS ' + (ver || '?'), net: 'LTE (Cell)' };
+    }
+    var model = 'unknown-device';
+    if (ua.indexOf('Macintosh') >= 0) model = 'Macintosh';
+    else if (ua.indexOf('Windows') >= 0) model = 'Windows PC';
+    return { model: model, os: navigator.platform || 'Unknown OS', net: 'Wi-Fi (5GHz)' };
+  }
 
-  var osStr = 'Unknown OS';
-  var av = /Android ([\d.]+)/.exec(ua);
-  if (av) osStr = 'Android ' + av[1];
-  else if (ua.indexOf('iPhone') >= 0) {
-    var iv = /CPU iPhone OS (\d+)[_.](\d+)?/.exec(ua);
-    osStr = 'iOS ' + (iv ? iv[1] + (iv[2] ? '.' + iv[2] : '') : '?');
-  } else osStr = navigator.platform || 'Unknown OS';
+  var ua = navigator.userAgent || '';
+  var target = detectTarget(ua);
+  var model = target.model;
+  var osStr = target.os;
+  var net = target.net;
 
   var screenStr = (screen.width || '?') + 'x' + (screen.height || '?');
   var cores = navigator.hardwareConcurrency || '?';
   var mem = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : '?';
-  var lang = navigator.language || '?';
-  var tz = (function () {
-    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || '?'; } catch (e) { return '?'; }
-  })();
   var batt = null;
   if (navigator.getBattery) {
     navigator.getBattery().then(function (b) { batt = Math.round(b.level * 100); });
@@ -472,10 +474,8 @@
   var i;
   for (i = 0; i < 13; i++) imei += randInt(0, 9);
   var serial = randHex(8);
-  var mac = 'AA:BB:' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2);
+  var mac = 'AA:BB:' + colonHex(4);
   var ip = '192.168.' + randInt(0, 3) + '.' + randInt(2, 254);
-  var net = ua.indexOf('iPhone') >= 0 ? 'LTE (Cell)' : 'Wi-Fi (5GHz)';
-
   var rx = 1.1, pk = 240;
   var statIv = setInterval(function () {
     rx += Math.random() * 0.9;
@@ -501,11 +501,13 @@
   }
   function notifHide() { notif.classList.remove('show'); }
 
+  function colonHex(n) {
+    var parts = [];
+    for (var i = 0; i < n; i++) parts.push(randHex(2));
+    return parts.join(':');
+  }
   function usbShow() {
-    usdFp.textContent = randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
-      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
-      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' +
-      randHex(2) + ':' + randHex(2) + ':' + randHex(2) + ':' + randHex(2);
+    usdFp.textContent = colonHex(16);
     usbDlg.classList.add('show');
   }
   function usbHide() { usbDlg.classList.remove('show'); }

@@ -91,7 +91,6 @@
     .poll-box .poll-opts label,
     .ego-stats > div { flex: 0 0 auto; }
   }
-  .blink-slow { animation: blink 2s step-end infinite; }
   html.reduce-motion .triple-row,
   html.reduce-motion .guestbook-cta .gb-btn { animation: none !important; }
 
@@ -257,15 +256,6 @@
   .cringe-quote::before { content: '"'; font-size: 24px; color: #f0f; position: absolute; top: -4px; left: 6px; }
   .cringe-quote::after { content: '"'; font-size: 24px; color: #0ff; position: absolute; bottom: -8px; right: 6px; }
 
-  .marquee-slow {
-    font-size: 10px;
-    color: #888;
-    border: 1px dashed #333;
-    padding: 3px;
-    margin: 4px 0;
-    background: #050505;
-  }
-
   .new-extra { font-size: 9px; color: #ff0; background: #f00; border: 1px solid #ff0; padding: 0 4px; animation: blink 0.7s step-end infinite; vertical-align: middle; margin-left: 4px; }
 
   .tsundere-fact-box {
@@ -323,41 +313,6 @@
   @keyframes cautionScroll {
     0% { background-position: 0 0; }
     100% { background-position: 22.6px 0; }
-  }
-
-  .hit-counter-big {
-    display: inline-flex;
-    gap: 3px;
-    background: #000;
-    border: 2px inset #333;
-    padding: 4px 8px;
-    margin: 4px 0;
-  }
-  .hit-counter-big .n {
-    display: inline-block;
-    background: #001a00;
-    padding: 2px 6px;
-    border: 1px solid #0f0;
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: #0f0;
-    font-family: var(--font-mono);
-    text-shadow: 0 0 6px #0f0;
-  }
-
-  .email-block {
-    background: #0a0a2e;
-    border: 2px ridge #ff0;
-    padding: 8px 12px;
-    text-align: center;
-    margin: 8px 0;
-    font-size: 11px;
-    color: #ff0;
-  }
-  .email-block a {
-    color: #0ff;
-    text-decoration: underline;
-    font-weight: bold;
   }
 
   .footer-extras {
@@ -663,7 +618,7 @@
     <span class="mini-title">&#x1F517; LINK ME, BAKA (steal this button!!)</span>
     <div class="linkme-toprow">
       <img class="linkme-badge" src="img/linkme-88x31.png" width="88" height="31" alt="YUMERIA link button - edit me">
-      <button type="button" onclick="var t=document.getElementById('linkmeCode');t.select();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value);}showStaticAlertPopup('STOLEN!!','<span class=&quot;big&quot;>&#x1F517;</span>my button!! stolen!!<br><br>...good. spread my fame, baka!! &#x2665;')">COPY!!</button>
+      <button type="button" onclick="copyLinkme()">COPY!!</button>
     </div>
     <textarea id="linkmeCode" class="linkme-code" rows="2" readonly onclick="this.select()">&lt;a href="https://yumeria.dev"&gt;&lt;img src="https://yumeria.dev/img/linkme-88x31.png" width="88" height="31" alt="YUMERIA"&gt;&lt;/a&gt;</textarea>
   </div>
@@ -682,7 +637,7 @@
       <div>hunger<br><span class="blink">STARVING</span></div>
       <div>happiness<br><span id="egoBar">▓▓▓▓▓▓░░░░ 60%</span></div>
     </div>
-    <button type="button" class="wide-btn" onclick="document.getElementById('egoBar').textContent='▓▓▓▓▓▓▓▓▓▓ 100% (spoiled)';showStaticAlertPopup('NOM NOM','<span class=&quot;big&quot;>&#x2665;</span>om nom nom!! compliment accepted!!<br><br>...whatever. it was MID. again, baka!!')">FEED!!</button>
+    <button type="button" class="wide-btn" onclick="feedEgo()">FEED!!</button>
   </div>
   <div class="poll-box">
     <span class="mini-title">&#x1F4CA; POLL: R U BAKA?</span>
@@ -749,7 +704,7 @@
   <span style="background:#000;color:#ff69b4;border-color:#ff69b4;">&#x2665; DERE (DENIED) &#x2665;</span>
   <span style="background:#0ff;color:#000;border-color:#00f;">DIAL-UP 4EVER</span>
   <span style="background:#f00;color:#fff;border-color:#900;">DO NOT PERCEIVE ME</span>
-  <span id="hugsBadge" role="button" tabindex="0" title="free* hugs (*not free)" onclick="showStaticAlertPopup('FREE* HUGS','<span class=&quot;big&quot;>&#x2665;</span>*hugs not free. emotional cost: 1 compliment. pay up, baka!!')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showStaticAlertPopup('FREE* HUGS','<span class=&quot;big&quot;>&#x2665;</span>*hugs not free. emotional cost: 1 compliment. pay up, baka!!')}" style="background:#000;color:#ff69b4;border-color:#ff69b4;cursor:pointer;">FREE* HUGS</span>
+  <span id="hugsBadge" role="button" tabindex="0" title="free* hugs (*not free)" onclick="freeHugs()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();freeHugs()}" style="background:#000;color:#ff69b4;border-color:#ff69b4;cursor:pointer;">FREE* HUGS</span>
   <span class="trail-toggle" id="trailToggle" role="button" tabindex="0" title="Cycle cursor trail mode">TRAIL: SPARKLE</span>
   <span class="new-extra">NEW!</span>
   <span style="background:#000;color:#0f0;border-color:#0f0;">FREE SPEECH NOW!!</span>
@@ -867,8 +822,25 @@
 </div>
 
 <script>
-  // Y2K countdown: days since 2000-01-01 (tsundere-certified, slightly wrong on purpose)
-  (function(){var el=document.getElementById('y2kDays');if(!el)return;try{var ms=Date.now()-Date.UTC(2000,0,1);var d=Math.floor(ms/86400000);el.textContent=d+' (and still buggy!!)';}catch(e){el.textContent='TOO MANY';}})();
+  function copyLinkme() {
+    var t = document.getElementById('linkmeCode');
+    t.select();
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value);
+    showStaticAlertPopup('STOLEN!!', '<span class="big">&#x1F517;</span>my button!! stolen!!<br><br>...good. spread my fame, baka!! &#x2665;');
+  }
+  function feedEgo() {
+    document.getElementById('egoBar').textContent = '▓▓▓▓▓▓▓▓▓▓ 100% (spoiled)';
+    showStaticAlertPopup('NOM NOM', '<span class="big">&#x2665;</span>om nom nom!! compliment accepted!!<br><br>...whatever. it was MID. again, baka!!');
+  }
+  function freeHugs() {
+    showStaticAlertPopup('FREE* HUGS', '<span class="big">&#x2665;</span>*hugs not free. emotional cost: 1 compliment. pay up, baka!!');
+  }
+  (function () {
+    var el = document.getElementById('y2kDays');
+    if (!el) return;
+    var days = Math.floor((Date.now() - Date.UTC(2000, 0, 1)) / 86400000);
+    el.textContent = days + ' (and still buggy!!)';
+  })();
 </script>
 <script src="assets/js/script.js"></script>
 
