@@ -7,7 +7,12 @@
 <meta name="description" content="AIF - Android Intrusion Framework. Session manager. Nothing to see here.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --g: #0f0;
@@ -16,8 +21,6 @@
     --red: #f33;
     --yel: #ff0;
     --cyan: #5ff;
-    --pink: #ff69b4;
-    --mag: #ff00ff;
     --bg: #000;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -200,75 +203,111 @@
   }
   .usd-btn.ok { color: #fff; background: #1a73e8; }
 
+  /* ---------- DISCLOSURE (matches the clean homepage) ---------- */
   .reveal {
     position: fixed;
     inset: 0;
-    background: #000;
-    background-image:
-      radial-gradient(#ff69b4 1px, transparent 1px),
-      radial-gradient(#9b30ff 1px, transparent 1px);
-    background-size: 40px 40px, 20px 20px;
+    background: #e9eaec;
+    color: #0a0a0a;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
     z-index: 80;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: clamp(16px, 4vw, 48px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
+  .reveal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      linear-gradient(115deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.35) 100%);
+    opacity: 0.35;
+    mix-blend-mode: soft-light;
+  }
   .reveal.show { opacity: 1; pointer-events: auto; }
   .reveal-box {
-    background: rgba(0,0,0,0.92);
-    border: 3px ridge var(--mag);
-    box-shadow: 0 0 30px rgba(255,0,255,0.4);
-    max-width: 460px;
+    position: relative;
     width: 100%;
-    padding: 20px;
+    max-width: 540px;
     max-height: 92vh;
     overflow-y: auto;
-    text-align: center;
+    padding: clamp(28px, 5vw, 48px);
+    background: rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07);
+  }
+  .reveal-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
   }
   .reveal-title {
-    font-size: clamp(20px, 5vw, 30px);
-    font-weight: bold;
-    color: var(--pink);
-    text-shadow: 0 0 15px var(--mag);
-    letter-spacing: 2px;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
-  }
-  .reveal-from { font-size: 11px; color: var(--cyan); margin: 6px 0 12px; letter-spacing: 1px; }
-  .reveal-body { text-align: left; color: #ddd; font-size: 13px; line-height: 1.6; }
-  .reveal-body p { margin-bottom: 10px; }
-  .reveal-body b { color: var(--yel); }
-  .reveal-body .hf { color: var(--pink); }
-  .kawaii { color: var(--pink); }
-  .reveal-redirect {
     margin-top: 14px;
-    font-size: 12px;
-    color: var(--g);
-    border: 1px dashed var(--g);
-    background: #050505;
-    padding: 8px;
-    letter-spacing: 1px;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
   }
-  .reveal-redirect a { color: var(--cyan); }
+  .reveal-sub {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .reveal-body {
+    display: grid;
+    gap: 14px;
+    margin-top: 28px;
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(0, 0, 0, 0.78);
+  }
+  .reveal-body b { font-weight: 600; color: #0a0a0a; }
+  .reveal-links { display: grid; gap: 10px; margin-top: 28px; }
   .reveal-link {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 8px 22px;
-    background: linear-gradient(180deg, var(--pink), #cc0066);
-    color: #fff;
-    border: 2px ridge var(--pink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.45);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: #0a0a0a;
     text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    animation: glowPulse 1.5s ease-in-out infinite;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background 0.25s ease, transform 0.25s ease;
   }
-  @keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 5px var(--pink); }
-    50% { box-shadow: 0 0 25px var(--pink); }
+  .reveal-link:hover { background: rgba(255, 255, 255, 0.75); transform: translateX(6px); }
+  .reveal-link:focus-visible { outline: 2px solid #0a0a0a; outline-offset: 2px; }
+  .reveal-link-main { background: #0a0a0a; color: #fff; }
+  .reveal-link-main:hover { background: #000; }
+  .reveal-redirect {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .reveal-redirect a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  @media (max-width: 520px) {
+    .reveal-link:hover { transform: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -339,25 +378,25 @@
 
 <div class="reveal" id="reveal" aria-hidden="true">
   <div class="reveal-box">
-    <div class="reveal-title">JUST KIDDING!! <span class="kawaii">(&#8801;&#x25E1;&#8801;)</span></div>
-    <div class="reveal-from">- from your friendly neighborhood MASKED TSUNDERE: <b style="color:#0ff;">YUMERIA</b></div>
+    <div class="reveal-eyebrow">After the fake intrusion</div>
+    <h2 class="reveal-title">It was a joke.</h2>
+    <p class="reveal-sub">Nothing was hacked. You can put the phone down.</p>
     <div class="reveal-body">
-      <p>That whole scary screen? <b>100% pretend.</b> Little HTML theater. I did <b>NOT</b> hack your phone. I can't even hack my own router. (Two years. Don't ask.)</p>
-      <p>Your photos, your chats, your secrets? All safe. Although... your battery is at <b id="battPct">??</b>% right now. Plug it in, baka.</p>
-      <p>But you <b>panicked</b>, didn't you?? Heart going <span class="hf">boom-boom</span>. Your little face all scrunched up. I wish I could've seen it. That's the real hack - I hacked your <b>feelings</b>. So easy. So fun. <span class="kawaii">(&#9685;&#x203F;&#9685;)</span></p>
-      <p><b>PWNED.</b> By me. On purpose. Zero regrets. <span class="kawaii">(&#x2267;&#x25BD;&#x2266;)</span></p>
+      <p><b>Your device is fine.</b> All of that was HTML theatre.</p>
+      <p>Sorry if it gave you a scare &mdash; <b>only a little</b>.</p>
     </div>
-    <div class="reveal-redirect">
-      REDIRECTING TO <a href="https://yumeria.dev">YUMERIA.DEV</a> IN <span id="cd">8</span>...
+    <div class="reveal-links">
+      <a class="reveal-link reveal-link-main" href="https://yumeria.dev">Open yumeria.dev <span aria-hidden="true">&#8594;</span></a>
+      <a class="reveal-link" href="https://yumeria.dev/1997">Visit the 1997 edition <span aria-hidden="true">&#8594;</span></a>
     </div>
-    <a class="reveal-link" href="https://yumeria.dev">I'M NOT WAITING, BAKA &#8594;</a>
+    <div class="reveal-redirect">Opening <a href="https://yumeria.dev">yumeria.dev</a> in <span id="cd">10</span> seconds</div>
   </div>
 </div>
 
 <noscript>
-  <p style="background:#000;color:#0f0;font-family:monospace;padding:20px;text-align:center;">
-    PSST. THIS WAS A JOKE. NOTHING HAPPENED TO YOUR PHONE.
-    <a href="https://yumeria.dev" style="color:#0ff;">GO TO YUMERIA.DEV &#8594;</a>
+  <p style="background:#e9eaec;color:#0a0a0a;font-family:system-ui,sans-serif;padding:24px;text-align:center;">
+    That was a joke &mdash; nothing happened to your device.
+    <a href="https://yumeria.dev" style="color:#0a0a0a;">Open yumeria.dev &#8594;</a>
   </p>
 </noscript>
 
@@ -378,7 +417,6 @@
   var usdFp = document.getElementById('usdFp');
   var reveal = document.getElementById('reveal');
   var cd = document.getElementById('cd');
-  var battPct = document.getElementById('battPct');
 
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
@@ -465,10 +503,6 @@
   var screenStr = (screen.width || '?') + 'x' + (screen.height || '?');
   var cores = navigator.hardwareConcurrency || '?';
   var mem = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : '?';
-  var batt = null;
-  if (navigator.getBattery) {
-    navigator.getBattery().then(function (b) { batt = Math.round(b.level * 100); });
-  }
 
   var imei = '35';
   var i;
@@ -520,10 +554,8 @@
     clearInterval(clockIv);
     notifHide();
     usbHide();
-    if (batt != null) battPct.textContent = batt;
-    else battPct.textContent = randInt(8, 23);
     reveal.classList.add('show');
-    var secs = 8;
+    var secs = 10;
     cd.textContent = secs;
     var iv = setInterval(function () {
       secs--;
